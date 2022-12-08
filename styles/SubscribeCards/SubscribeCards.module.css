@@ -1,0 +1,67 @@
+.telegramCard {
+    background: #ECC911;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 600px;
+    width: 50%;
+    height: 200px;
+}
+
+.telegramCard>div {
+    max-width: 330px;
+    position: absolute;
+    top: 20px;
+    right: 50px;
+}
+
+.telegramCard>img {
+    position: absolute;
+    top: -50px;
+    left: -15px;
+}
+
+.telegramCard>div>p {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 120%;
+    margin-bottom: 20px;
+}
+
+.emailCard {
+    background: #333333;
+    color: #fff;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: 600px;
+    width: 50%;
+    height: 200px;
+}
+
+.emailCard>div {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+}
+
+.emailCard>div {
+    max-width: 330px;
+}
+
+.emailCard>div>p:first-child {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 120%;
+    margin: 0 0 10px 0;
+
+}
+
+.emailCard>img {
+    position: absolute;
+    right: 0;
+    top: -50px;
+    transform: rotate(15deg);
+}
