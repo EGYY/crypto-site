@@ -20,8 +20,8 @@
 }
 
 .topPanelHeader>p {
-    font-weight: 400;
-    font-size: 18px;
+    font-weight: 500;
+    font-size: 15px;
     line-height: 21px;
     text-transform: uppercase;
     margin: 0;
@@ -56,8 +56,8 @@
 }
 
 .topPanelContentItem>p {
-    font-weight: 400;
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 15px;
     line-height: 19px;
     margin: 0;
 }

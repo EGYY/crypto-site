@@ -30,7 +30,9 @@ a {
   width: 25%;
 }
 
-@media (prefers-color-scheme: dark) {
+
+/* styles for dark theme */
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
@@ -38,4 +40,4 @@ a {
     color: white;
     background: black;
   }
-}
+} */

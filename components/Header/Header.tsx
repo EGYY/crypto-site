@@ -1,15 +1,20 @@
-import styles from '../../styles/Home.module.css';
 import headerStyles from '../../styles/Header/Header.module.css';
 import Logo from './Logo';
 import SearchPanel from './SearchPanel';
 import AuthButtons from './AuthButtons';
+import SubHeader from "./SubHeader";
 
 export default function Header() {
     return (
-        <header className={headerStyles.headerContainer}>
-            <Logo />
-            <SearchPanel />
-            <AuthButtons />
-        </header>
+        <>
+            <SubHeader />
+            <header className={headerStyles.headerContainer}>
+                <div className={headerStyles.headerWrapper}>
+                    <Logo/>
+                    <SearchPanel/>
+                    <AuthButtons/>
+                </div>
+            </header>
+        </>
     );
 }

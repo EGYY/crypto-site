@@ -1,6 +1,11 @@
 .headerContainer {
     background-color: #333333;
     padding: 30px 100px;
+}
+
+.headerWrapper {
+    max-width: 1240px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
 }
