@@ -3,6 +3,7 @@ import Logo from './Logo';
 import SearchPanel from './SearchPanel';
 import AuthButtons from './AuthButtons';
 import SubHeader from "./SubHeader";
+import UserButtons from './UserButtons';
 
 export default function Header() {
     return (
@@ -10,9 +11,10 @@ export default function Header() {
             <SubHeader />
             <header className={headerStyles.headerContainer}>
                 <div className={headerStyles.headerWrapper}>
-                    <Logo/>
-                    <SearchPanel/>
-                    <AuthButtons/>
+                    <Logo />
+                    <SearchPanel />
+                    <UserButtons />
+                    {/* <AuthButtons/> */}
                 </div>
             </header>
         </>

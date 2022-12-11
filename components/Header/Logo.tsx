@@ -1,11 +1,19 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { FC } from 'react';
 import styles from '../../styles/Header/Logo.module.css';
 
-export default function Logo() {
+interface ILogoProps {
+    dark?: boolean
+}
+
+const Logo: FC<ILogoProps> = ({ dark }) => {
     return (
-        <div className={styles.logoContainer}>
+        <Link className={`${styles.logoContainer} ${dark ? styles.logoContainerDark : ''}`} href={'/'}>
             <Image src="/logo.svg" alt="Логотип" width={40} height={40} />
             <p>БЛОГ О ZАRАБОТКЕ <span>ZARABARAHOROSHO</span></p>
-        </div>
+        </Link>
     );
 }
+
+export default Logo;

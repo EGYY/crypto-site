@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FC } from "react";
 import styles from "../../styles/InfoPanel/InfoPanel.module.css";
 
@@ -13,13 +14,13 @@ const InfoPanelItem: FC<ComponentProps> = (props) => {
     const {id, avatar, text} = props.item;
 
     return(
-        <div className={styles.infoPanelItem}>
+        <Link href={`/article/test`} className={styles.infoPanelItem}>
             <div className={styles.infoPanelItemAvatar}>
                 {avatar}
                 <div>{id}</div>
             </div>
             <div className={styles.infoPanelItemText}>{text}</div>
-        </div>
+        </Link>
     );
 }
 
