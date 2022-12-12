@@ -74,3 +74,17 @@
     border-radius: 10px;
     text-transform: uppercase;
 }
+
+
+.infoPanelContentColumn {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.infoPanelItemColumn {
+    display: flex;
+    min-width: 212px;
+    width: 100%;
+}
