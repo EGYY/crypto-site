@@ -1,7 +1,10 @@
-import React, {FC} from "react";
+import React, {FC, useEffect} from "react";
 import Head from "next/head";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
+import {useAppDispatch} from "../redux/hooks";
+import {setAuth, setUser } from "../redux/user/userSlice";
+import {getMainInfo, getProjects} from "../redux/main/mainSlice";
 
 interface IWrapperProps {
     children: React.ReactNode,
@@ -13,6 +16,22 @@ interface IWrapperProps {
 
 const Wrapper: FC<IWrapperProps> = (props) => {
     const {children, title, keywords, description, no_index} = props;
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            dispatch(setAuth(true));
+        }
+
+        if (localStorage.getItem('user')) {
+            const user = JSON.parse(localStorage.getItem('user') ?? '{}');
+            dispatch(setUser(user));
+        }
+
+        dispatch(getMainInfo())
+        dispatch(getProjects())
+    }, [])
+
     return (
         <>
             <Head>

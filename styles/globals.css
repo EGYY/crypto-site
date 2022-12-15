@@ -30,6 +30,13 @@ a {
   width: 25%;
 }
 
+.error-msg {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  color: #C01E1E;
+}
+
 
 /* styles for dark theme */
 /* @media (prefers-color-scheme: dark) {

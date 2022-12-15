@@ -1,0 +1,36 @@
+.inputContainer {
+    margin: 12px 0;
+}
+
+.inputLabel {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    color: #2F2046;
+    margin-left: 15px;
+    text-transform: uppercase;
+}
+
+.input {
+    background: #FFFFFF;
+    border: 2px solid #312048;
+    border-radius: 25px;
+    min-width: 286px;
+    width: 100%;
+    margin-top: 6px;
+    padding: 10px;
+    outline-color: #FFD600;
+}
+
+.inputError {
+    border: 2px solid #C01E1E;
+}
+
+.inputContainer>p {
+    color: #C01E1E;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 16px;
+    margin-top: 5px;
+    margin-left: 15px;
+}

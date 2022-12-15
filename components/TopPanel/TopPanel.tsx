@@ -18,11 +18,11 @@ const TopPanel: FC<ComponentProps> = (props) => {
                 <p>{title}</p>
             </div>
             <div className={styles.topPanelContent}>
-                {items.length > 0 && (
+                {items.length > 0 ? (
                     <>
                         {items.map((item, idx) => <TopPanelItem key={idx} item={item} />)}
                     </>
-                )}
+                ) : <div>Список пока пуст</div>}
             </div>
         </div>
     );

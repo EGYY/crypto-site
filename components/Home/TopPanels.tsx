@@ -1,64 +1,41 @@
-import React from "react";
+import React, {useMemo} from "react";
 import Image from "next/image";
 import TopPanel from "../TopPanel/TopPanel";
-
-const topUsers = [
-    {
-        id: 1,
-        avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
-        name: 'НИКНЕЙМ',
-    },
-    {
-        id: 2,
-        avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
-        name: 'НИКНЕЙМ',
-    },
-    {
-        id: 3,
-        avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
-        name: 'НИКНЕЙМ',
-    },
-    {
-        id: 4,
-        avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
-        name: 'НИКНЕЙМ',
-    },
-    {
-        id: 5,
-        avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
-        name: 'НИКНЕЙМ',
-    }
-]
-
-const topInvests = [
-    {
-        id: 1,
-        avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
-        name: 'ИНВЕСТИЦИЯ',
-    },
-    {
-        id: 2,
-        avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
-        name: 'ИНВЕСТИЦИЯ',
-    },
-    {
-        id: 3,
-        avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
-        name: 'ИНВЕСТИЦИЯ',
-    },
-    {
-        id: 4,
-        avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
-        name: 'ИНВЕСТИЦИЯ',
-    },
-    {
-        id: 5,
-        avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
-        name: 'ИНВЕСТИЦИЯ',
-    }
-]
+import {useAppSelector} from "../../redux/hooks";
 
 export default function TopPanels() {
+    const {main_info} = useAppSelector(state => state.main);
+
+    const topUsers = useMemo(() => {
+        if (main_info.most_active_user.length > 0) {
+            const arr = main_info.most_active_user.map((item, idx) => {
+                return {
+                    id: idx,
+                    avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
+                    name: item,
+                }
+            });
+            return arr;
+        } else {
+            return [];
+        }
+    }, [main_info.most_active_user]);
+
+    const topInvests = useMemo(() => {
+        if (main_info.my_top_five instanceof Array && main_info.my_top_five.length > 0) {
+            const arr = main_info.my_top_five.map((item, idx) => {
+                return {
+                    id: idx,
+                    avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
+                    name: item,
+                }
+            });
+            return arr;
+        } else {
+            return [];
+        }
+    }, [main_info.my_top_five]);
+
     return (
         <div style={{marginLeft: 20, marginTop: 30}}>
             <TopPanel
