@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import TopPanelItem from "./TopPanelItem";
 import styles from "../../styles/TopPanel/TopPanel.module.css";
 

@@ -1,3 +1,4 @@
+import React from "react";
 import headerStyles from '../../styles/Header/Header.module.css';
 import Logo from './Logo';
 import SearchPanel from './SearchPanel';

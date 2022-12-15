@@ -1,3 +1,4 @@
+import React from "react";
 import Button from "../UI/Button";
 import styles from "../../styles/Header/AuthButtons.module.css";
 

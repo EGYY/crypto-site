@@ -1,3 +1,4 @@
+import React from "react";
 import SubscribeEmailCard from "./SubscribeEmailCard";
 import SubscribeTelegramCard from "./SubscribeTelegramCard";
 

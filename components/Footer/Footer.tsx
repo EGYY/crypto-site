@@ -1,3 +1,4 @@
+import React from "react";
 import Image from "next/image";
 import styles from "../../styles/Footer/Footer.module.css";
 import homeStyles from "../../styles/Home.module.css";
