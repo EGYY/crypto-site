@@ -19,7 +19,7 @@ const ArticleComment = () => {
 
     const getProject = async (id: number): Promise<IProject> => {
         try {
-            const response = await fetch(`${_api_url}/api/v1/blog/projects/${id}`, {
+            const response = await fetch(`${_api_url}/api/v1/blog/projects/${id}/`, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
