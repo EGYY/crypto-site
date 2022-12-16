@@ -21,8 +21,6 @@ export interface IArticle {
 
 export interface IProject {
     id: number,
-    id_project: number,
-    title_project: string,
     title: string,
     cover: string,
     user_review: number,

@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {_api_url} from "../store";
-import {IUserResponse, IUserState, Profile, User} from "../interfaces/user";
+import {IProfileFavorite, IUserResponse, IUserState, Profile, User} from "../interfaces/user";
 import {IUserBodyRegistration} from "../interfaces/user";
 import {IUserBodyLogin} from "../interfaces/user";
 import { IProject } from "../interfaces/project";
@@ -84,7 +84,7 @@ const userSlice = createSlice({
         setProfile(state, action: PayloadAction<Profile>) {
             state.profile = action.payload;
         },
-        setFavourite(state, action: PayloadAction<IProject>) {
+        setFavourite(state, action: PayloadAction<IProfileFavorite>) {
             state.profile.favourites.unshift(action.payload);
         }
     },

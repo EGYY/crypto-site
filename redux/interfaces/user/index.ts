@@ -1,5 +1,3 @@
-import { IProject } from "../project";
-
 //auth interfaces
 export interface IUserBodyRegistration {
     "username": string,
@@ -50,9 +48,15 @@ export interface ProfitGraphic {
     data: number[];
 }
 
+export interface IProfileFavorite {
+    id_project: number,
+    title_project: string,
+    cover: string
+}
+
 export interface Profile {
     message: string;
-    favourites: IProject[];
+    favourites: IProfileFavorite[];
     my_investment_portfolio: number;
     invested_total_graphic: InvestedTotalGraphic;
     bred_total_graphic: BredTotalGraphic;

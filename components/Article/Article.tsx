@@ -2,13 +2,14 @@ import { toast } from 'react-toastify';
 import Button from "../UI/Button";
 import styles from "../../styles/Article/Article.module.css";
 import Modal from "../UI/Modal";
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import Input from "../UI/Input";
 import Select from "../UI/Selecet";
 import { _api_url } from "../../redux/store";
 import { IProject } from "../../redux/interfaces/project";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setFavourite } from "../../redux/user/userSlice";
+import { setFavourite, setProfile } from "../../redux/user/userSlice";
+import { useLazyGetProfileQuery } from '../../redux/user/userApi';
 
 const Article: FC<{ data: IProject }> = ({ data }) => {
     const dispatch = useAppDispatch();
@@ -16,6 +17,20 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
     const [openModal, setOpenModal] = useState(false);
     const [sum, setSum] = useState('1');
     const [currency, setCurrency] = useState('₽');
+    const [getProfile, {data: profileData}] = useLazyGetProfileQuery();
+
+
+    useEffect(() => {
+        if (isAuth && !profile.message) {
+            getProfile('');
+        } 
+    }, [isAuth, profile])
+
+    useEffect(() => {
+        if (profileData?.message === 'ok') {
+            dispatch(setProfile(profileData));
+        }
+    }, [profileData, dispatch])
 
     const inFavorite = useMemo(() => {
         if (profile?.favourites?.length > 0) {
@@ -53,8 +68,12 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
             if (!response.ok) {
                 throw Error('Ошибка добавления в избранное');
             }
-            const json = await response.json();
-            dispatch(setFavourite(json));
+            const favourite = {
+                id_project: data.id,
+                title_project: data.title,
+                cover: data.cover
+            }
+            dispatch(setFavourite(favourite));
             toast('❤️ Проект усешно добавлен в избранное!')
         } catch (e: any) {
             toast(e.message);
