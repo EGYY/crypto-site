@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import Button from "../UI/Button";
 import styles from "../../styles/Article/Article.module.css";
 import Modal from "../UI/Modal";
@@ -11,10 +12,23 @@ import { setFavourite } from "../../redux/user/userSlice";
 
 const Article: FC<{ data: IProject }> = ({ data }) => {
     const dispatch = useAppDispatch();
-    const { isAuth } = useAppSelector(state => state.user);
+    const { isAuth, profile } = useAppSelector(state => state.user);
     const [openModal, setOpenModal] = useState(false);
-    const [sum, setSum] = useState('0');
+    const [sum, setSum] = useState('1');
     const [currency, setCurrency] = useState('₽');
+
+    const inFavorite = useMemo(() => {
+        if (profile?.favourites?.length > 0) {
+            const isFavoure = profile.favourites.filter(item => item.id_project === data.id)
+            if (isFavoure.length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }, [profile?.favourites, data?.id])
 
     const totalDays = useMemo(() => {
         if (data?.how_many_days > 0) {
@@ -35,10 +49,15 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                 },
                 body: JSON.stringify({ project: data.id }),
             })
+
+            if (!response.ok) {
+                throw Error('Ошибка добавления в избранное');
+            }
             const json = await response.json();
             dispatch(setFavourite(json));
-        } catch (e) {
-            console.log(e);
+            toast('❤️ Проект усешно добавлен в избранное!')
+        } catch (e: any) {
+            toast(e.message);
         }
     }
 
@@ -58,10 +77,26 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                 },
                 body: JSON.stringify(body),
             })
+            if (!response.ok) {
+                throw Error('Ошибка добавления проекта в портфель');
+            }
             setOpenModal(false);
+            toast('✅ Проект усешно добавлен в портфель!')
             // const json = await response.json();
-        } catch(e) {
-            console.log(e);
+        } catch (e: any) {
+            toast(e.message);
+        }
+    }
+
+    const handleShareProject = () => {
+        if (navigator?.share) {
+            navigator.share({
+                url: `${_api_url}/project/${data.id}`,
+                text: data.article_to_project?.length > 0 ? data.article_to_project[0].text : '',
+                title: data.title
+            })
+        } else {
+            toast('Невозможно поделиться ссылкой на проект')
         }
     }
 
@@ -83,12 +118,16 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                         <li><div></div>дата публикации</li>
                     </ul>
                     <div>
-                        <Button text="Поделиться" style={{ marginRight: 20 }} />
-                        <Button text="В избранное"
+                        <Button text="Поделиться" style={{ marginRight: 20 }} handleClick={handleShareProject} />
+                        <Button 
+                            text={inFavorite ? 'В избранном' : 'В избранное'}
                             handleClick={() => {
-                                console.log(isAuth)
-                                if (isAuth) {
+                                if (isAuth && !inFavorite) {
                                     addToFavourite();
+                                } else if (inFavorite) {
+                                    return;
+                                } else {
+                                    toast('❤️ Для добавления проекта в избранное необходимо авторизоваться')
                                 }
                             }}
                         />
@@ -113,6 +152,8 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                                 handleClick={() => {
                                     if (data.link_to_site) {
                                         window.open(data.link_to_site, '_blank')
+                                    } else {
+                                        toast('Сайт для проекта не указан')
                                     }
                                 }}
                                 text="Перейти на сайт"
@@ -135,7 +176,17 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                     textTransform: 'uppercase',
                 }}>Altana Digital Currency Fund</h2>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Input value={sum} onChange={setSum} label="Сумма внесенная в проект" />
+                    <Input value={sum}
+                        onChange={(value) => {
+                            if (value.length > 0) {
+                                value.match(/^[0-9]+$/) && setSum(value)
+                            } else {
+                                setSum('');
+                            }
+                        }
+                        }
+                        label="Сумма внесенная в проект"
+                    />
                     <Select
                         label="Валюта"
                         value={currency}
@@ -143,6 +194,7 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                         onChange={setCurrency}
                     />
                 </div>
+                {sum.length === 0 && <div className='error-msg'>Поле с суммой не должно быть пустым</div> }
                 {/* <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <Input value="100 000 000 000 000 000 000" label="Сумма снятия из проекта" onChange={() => console.log(1)} />
                     <Select
@@ -156,6 +208,8 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                     <Button text="Сохранить" style={{ marginRight: 16 }} handleClick={() => {
                         if (isAuth && +sum > 0) {
                             addProject();
+                        } else {
+                            toast('Для добавления проекта в портфолио необходимо авторизоваться')
                         }
                     }} />
                     <Button text="Отменить" handleClick={() => setOpenModal(false)} />

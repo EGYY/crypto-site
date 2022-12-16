@@ -55,7 +55,6 @@ export const  getServerSideProps = async (context: any) => {
                 throw Error('Ошибка запроса!')
             }
             const data = await response.json();
-            console.log(data);
             return data;
         } catch (e: any) {
             return {} as IProject;

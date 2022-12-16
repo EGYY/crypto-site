@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import TopPanels from "../components/Home/TopPanels";
 import InfoPanel from "../components/InfoPanel/InfoPanel";
@@ -6,19 +7,22 @@ import InfoStatisticPanel from "../components/InfoPanel/InfoStatisticPanel";
 import ProfileCards from "../components/Profile/ProfileCards";
 import Button from "../components/UI/Button";
 import Wrapper from "../components/Wrapper";
-import { useAppDispatch } from "../redux/hooks";
+import withAuth from "../hoc/withAuth";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { Profile as IProfile } from "../redux/interfaces/user";
 import { _api_url } from "../redux/store";
 import { useGetProfileQuery } from "../redux/user/userApi";
 import { setProfile } from "../redux/user/userSlice";
 import styles from '../styles/Home.module.css';
 
-export default function Profile() {
+function Profile() {
     const dispatch = useAppDispatch();
+    const router = useRouter();
+    const {isAuth} = useAppSelector(state => state.user);
     const {data = {} as IProfile, isLoading} = useGetProfileQuery('', {refetchOnFocus: true});
     
     useEffect(() => {
-        if (data) {
+        if (data?.message === 'ok') {
             dispatch(setProfile(data));
         }
     }, [data, dispatch]);
@@ -48,6 +52,11 @@ export default function Profile() {
         }
     }, [data?.favourites])
 
+    if (!isAuth) {
+        router.replace('/');
+        return null;
+    }
+
     return (
         <Wrapper no_index={true} title="Личный кабинет">
             <div className={styles.container} style={{marginBottom: '66px'}}>
@@ -76,3 +85,5 @@ export default function Profile() {
         </Wrapper>
     );
 }
+
+export default withAuth(Profile);

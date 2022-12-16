@@ -5,7 +5,7 @@ import projectReducer from './project/projectSlice';
 import {userApi} from './user/userApi';
 import { setupListeners } from '@reduxjs/toolkit/query';
 
-export const _api_url = 'http://95.163.237.221:8000';
+export const _api_url = 'https://zarabarahorosho.pro:8000';
 
 export const store = configureStore({
   reducer: {

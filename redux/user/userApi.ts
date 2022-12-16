@@ -4,7 +4,7 @@ import {_api_url} from "../store";
 
 export const userApi = createApi({
     reducerPath: 'user/api',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://95.163.237.221:8000'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'https://zarabarahorosho.pro:8000'}),
     refetchOnFocus: true,
     endpoints: build => ({
         getProfile: build.query<Profile, string>({

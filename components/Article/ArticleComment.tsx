@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
+import { toast } from 'react-toastify';
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { IProject, IProjectComment } from "../../redux/interfaces/project";
+import { IProjectComment } from "../../redux/interfaces/project";
 import { setError, setLoading, setComment as setCommentTopProject } from "../../redux/project/projectSlice";
 import { _api_url } from "../../redux/store";
 import styles from "../../styles/Article/ArticleComment.module.css";
@@ -37,6 +38,7 @@ const ArticleComment = () => {
             setComment('');
             setRating(1);
             dispatch(setCommentTopProject(json));
+            toast('Комментарий успешно отправлен!')
         } catch (e: any) {
             dispatch(setError(e.message));
         } finally {
@@ -63,7 +65,6 @@ const ArticleComment = () => {
             <h2>Оставить комментарий</h2>
             <textarea
                 value={comment}
-                defaultValue={comment}
                 onChange={e => setComment(e.target.value)}
                 placeholder={'Напишите комментарий'}
             />
