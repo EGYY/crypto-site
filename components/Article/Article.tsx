@@ -193,7 +193,7 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                     fontSize: '32px',
                     lineHeight: '38px',
                     textTransform: 'uppercase',
-                }}>Altana Digital Currency Fund</h2>
+                }}>{data?.title}</h2>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <Input value={sum}
                         onChange={(value) => {
