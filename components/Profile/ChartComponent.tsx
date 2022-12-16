@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -42,22 +42,7 @@ export const options = {
     },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-    labels,
-    datasets: [
-        {
-            fill: true,
-            label: 'Всего инвестировано',
-            lineTension: 0.3,
-            data: [2500, 5000, 2300, 6000, 7000, 8000, 10000],
-            borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        },
-    ],
-};
-const ChartComponent = () => {
+const ChartComponent:FC<any> = ({data}) => {
     return <Line options={options} data={data} width={"288px"} height={'288px'}/>;
 }
 

@@ -44,6 +44,48 @@ export const getProjects = createAsyncThunk(
     }
 )
 
+export const getArticles = createAsyncThunk(
+    'main/articles',
+    async function (_, api) {
+        try {
+            const response = await fetch(`${_api_url}/api/v1/blog/articles/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw Error('Ошибка получения информации!')
+            }
+            const data = await response.json();
+            return data;
+        } catch (e: any) {
+            return api.rejectWithValue(e.message);
+        }
+
+    }
+)
+
+export const getFavoriteProjects = createAsyncThunk(
+    'main/favorites',
+    async function (_, api) {
+        try {
+            const response = await fetch(`${_api_url}/api/v1/blog/favourite_projects/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw Error('Ошибка получения информации!')
+            }
+            const data = await response.json();
+            return data;
+        } catch (e: any) {
+            return api.rejectWithValue(e.message);
+        }
+
+    }
+)
+
 const initialState: IMainState = {
     main_info: {
         participants_number: 0,
@@ -54,6 +96,8 @@ const initialState: IMainState = {
     },
     loading_main_info: false,
     projects: [],
+    articles: [],
+    favorites: [],
     loading_projects: false,
 
 }
@@ -78,6 +122,12 @@ const mainSlice = createSlice(
             setMyTopFive(state, action: PayloadAction<Array<string> | string>) {
                 state.main_info.my_top_five = action.payload;
             },
+            setArticles(state, action: PayloadAction<IGetProjects[]>) {
+                state.articles = action.payload;
+            },
+            setFavorites(state, action: PayloadAction<IGetProjects[]>) {
+                state.favorites = action.payload;
+            }
         },
         extraReducers: {
             [getMainInfo.pending.toString()]: (state) => {
@@ -100,6 +150,12 @@ const mainSlice = createSlice(
             [getProjects.rejected.toString()]: (state) => {
                 state.loading_projects = false;
             },
+            [getArticles.fulfilled.toString()]: (state, action: PayloadAction<IGetProjects[]>) => {
+                state.articles = action.payload;
+            },
+            [getFavoriteProjects.fulfilled.toString()]: (state, action: PayloadAction<IGetProjects[]>) => {
+                state.favorites = action.payload;
+            },
         },
     }
 )
@@ -109,7 +165,9 @@ export const {
     setMyTopFive,
     setParticipantsNumber,
     setPrivateClubParticipants,
-    setSumInvestments
+    setSumInvestments,
+    setArticles,
+    setFavorites,
 } = mainSlice.actions;
 
 export default mainSlice.reducer;

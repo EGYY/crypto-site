@@ -1,8 +1,9 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {_api_url} from "../store";
-import {IUserResponse, IUserState, User} from "../interfaces/user";
+import {IUserResponse, IUserState, Profile, User} from "../interfaces/user";
 import {IUserBodyRegistration} from "../interfaces/user";
 import {IUserBodyLogin} from "../interfaces/user";
+import { IProject } from "../interfaces/project";
 
 export const registration = createAsyncThunk(
     'user/registration',
@@ -58,6 +59,7 @@ export const login = createAsyncThunk(
 
 const initialState: IUserState = {
     user: {} as User,
+    profile: {} as Profile,
     isAuth: false,
     loading: false,
     error: '',
@@ -78,6 +80,12 @@ const userSlice = createSlice({
         },
         setError(state, action: PayloadAction<string>) {
             state.error = action.payload;
+        },
+        setProfile(state, action: PayloadAction<Profile>) {
+            state.profile = action.payload;
+        },
+        setFavourite(state, action: PayloadAction<IProject>) {
+            state.profile.favourites.unshift(action.payload);
         }
     },
     extraReducers: {
@@ -116,6 +124,6 @@ const userSlice = createSlice({
     }
 });
 
-export const {setUser, setAuth, setLoading, setError} = userSlice.actions;
+export const {setUser, setAuth, setLoading, setError, setProfile, setFavourite} = userSlice.actions;
 
 export default userSlice.reducer;

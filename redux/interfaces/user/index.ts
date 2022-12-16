@@ -1,3 +1,6 @@
+import { IProject } from "../project";
+
+//auth interfaces
 export interface IUserBodyRegistration {
     "username": string,
     "email": string,
@@ -16,6 +19,7 @@ export interface IUserResponse {
 
 export interface IUserState {
     user: User,
+    profile: Profile,
     isAuth: boolean,
     loading: boolean,
     error: string,
@@ -25,3 +29,34 @@ export interface IUserBodyLogin {
     "username": string,
     "password": string
 }
+//end auth interfaces
+
+//profile
+export interface InvestedTotalGraphic {
+    invested_total: number;
+    labels: string[];
+    data: number[];
+}
+
+export interface BredTotalGraphic {
+    bred_total: number;
+    labels: string[];
+    data: number[];
+}
+
+export interface ProfitGraphic {
+    profit_total: number;
+    labels: string[];
+    data: number[];
+}
+
+export interface Profile {
+    message: string;
+    favourites: IProject[];
+    my_investment_portfolio: number;
+    invested_total_graphic: InvestedTotalGraphic;
+    bred_total_graphic: BredTotalGraphic;
+    profit_graphic: ProfitGraphic;
+}
+//end profile
+

@@ -24,11 +24,11 @@ const InfoPanel: FC<ComponentProps> = (props) => {
             </div>
             {!expanded ? (
                 <div className={styles.infoPanelContent}>
-                    {data?.length > 0 && (
+                    {data?.length > 0 ? (
                         <>
-                            {data.map(item => <InfoPanelItem item={item} key={item.id} />)}
+                            {data.slice(0, 5).map(item => <InfoPanelItem item={item} key={item.id} />)}
                         </>
-                    )}
+                    ) : <div>Список пока пуст</div>}
                 </div>
             ) : (
                 <div className={styles.infoPanelContentColumn}>

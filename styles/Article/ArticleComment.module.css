@@ -20,6 +20,16 @@
     min-height: 100px;
     border: none;
     padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Roboto';
+}
+
+.articleCommentContainer > textarea::placeholder {
+    font-size: 14px;
+    font-weight: 400;
+    font-family: 'Roboto';
+    letter-spacing: .5;
 }
 
 .articleCommentContainer > textarea:focus { 
@@ -37,4 +47,52 @@
     display: flex;
     align-items: center;
     gap: 7px;
+}
+
+
+.articleCommentListItem {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+}
+
+.articleCommentListItem > div {
+    display: flex;
+    flex-direction: column;
+    align-items: start !important;
+    margin-left: 10px;
+}
+
+.articleCommentListItemAvatar {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.articleCommentListItemCoomentContent {
+    position: relative;
+    width: 100%;
+}
+
+.articleCommentListItemCoomentContent > span {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #808d9a;
+    font-size: 14px;
+}
+
+.articleCommentListItemComentText {
+    display: flex;
+    flex-direction: column !important;
+}
+
+.articleCommentListItemComentText > b {
+    margin-bottom: 10px;
 }
