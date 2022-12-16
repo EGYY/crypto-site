@@ -52,7 +52,12 @@ const ArticleComment = () => {
                 throw Error('Ошибка запроса на сервер!');
             }
 
-            const json: IProjectComment = await response.json();
+            const json = await response.json();
+
+            if (json.message) {
+                throw Error(json.message);
+                return;
+            }
             setComment('');
             setRating(1);
             dispatch(setCommentTopProject(json));
@@ -76,7 +81,9 @@ const ArticleComment = () => {
             dispatch(setError('Для отправки комментария вы должны быть авторизованы'))
         }
 
-        await sendReview();
+        if (isAuth) {
+            await sendReview();
+        }
     }
 
     return (
