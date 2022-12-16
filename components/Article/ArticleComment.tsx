@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 import { toast } from 'react-toastify';
 import { useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { IProjectComment } from "../../redux/interfaces/project";
-import { setError, setLoading, setComment as setCommentTopProject } from "../../redux/project/projectSlice";
+import {IProject, IProjectComment} from "../../redux/interfaces/project";
+import { setError, setLoading, setComment as setCommentTopProject, setProject } from "../../redux/project/projectSlice";
 import { _api_url } from "../../redux/store";
 import styles from "../../styles/Article/ArticleComment.module.css";
 import Button from "../UI/Button";
@@ -13,9 +13,27 @@ const ArticleComment = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
     const { isAuth } = useAppSelector(state => state.user);
-    const { error, loading } = useAppSelector(state => state.project);
+    const { error, loading, project } = useAppSelector(state => state.project);
     const [comment, setComment] = useState('');
     const [rating, setRating] = useState(1);
+
+    const getProject = async (id: number): Promise<IProject> => {
+        try {
+            const response = await fetch(`${_api_url}/api/v1/blog/projects/${id}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            if (!response.ok) {
+                throw Error('Ошибка запроса!')
+            }
+            const data = await response.json();
+            dispatch(setProject(data));
+            return data;
+        } catch (e: any) {
+            return {} as IProject;
+        }
+    }
 
     const sendReview = async () => {
         dispatch(setLoading(true));
@@ -38,6 +56,7 @@ const ArticleComment = () => {
             setComment('');
             setRating(1);
             dispatch(setCommentTopProject(json));
+            await getProject(project.id)
             toast('Комментарий успешно отправлен!')
         } catch (e: any) {
             dispatch(setError(e.message));
@@ -47,14 +66,14 @@ const ArticleComment = () => {
     }
 
     const handleSendReview = async () => {
-        setError('');
+        dispatch(setError(''))
         if (comment.length === 0) {
-            setError('Комментарий не должен быть пустым!');
+            dispatch(setError('Комментарий не должен быть пустым!'))
             return
         }
 
         if (!isAuth) {
-            setError('Для отправки комментария вы должны быть авторизованы');
+            dispatch(setError('Для отправки комментария вы должны быть авторизованы'))
         }
 
         await sendReview();
