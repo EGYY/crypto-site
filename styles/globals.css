@@ -37,6 +37,33 @@ a {
   color: #C01E1E;
 }
 
+.group-modal-inputs {
+  display: flex;
+  alignItems: center;
+  gap: 8px;
+}
+
+@media screen and (max-width: 1300px) {
+  .row {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+
+  .col-16 {
+    width: 100%;
+  }
+
+  .col-8 {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 830px) {
+  .group-modal-inputs {
+    flex-direction: column;
+  }
+}
+
 
 /* styles for dark theme */
 /* @media (prefers-color-scheme: dark) {

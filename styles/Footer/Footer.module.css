@@ -53,3 +53,27 @@
     border: 1px solid #ECC911;
     color: #ECC911;
 }
+
+@media screen and (max-width: 1080px){
+    .footerSocials {
+        display: flex;
+    }
+    .logoContaner {
+        display: flex;
+        align-items: center;
+    }
+    .footerMenu>ul:not(:last-child) {
+        margin-right: 0;
+    }
+    .footerContainer {
+        flex-direction: column;
+    }
+    .footerMenu {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    .footer {
+        padding: 40px 20px;
+    }
+}

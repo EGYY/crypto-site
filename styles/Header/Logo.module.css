@@ -27,3 +27,12 @@
 .logoContainer > p > span {
     font-weight: 400;
 }
+
+@media screen and (max-width: 930px){
+    .logoContainer > p {
+        display: none;
+    }
+    .logoContainer > img {
+        margin-right: 10px;
+    }
+}

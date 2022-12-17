@@ -1,6 +1,6 @@
 .subheader {
     background-color: #F4F4F4;
-    padding: 10px 0;
+    padding: 10px 20px;
 }
 
 .subheader ul {
@@ -38,4 +38,10 @@
     color: #555555;
     line-height: 16px;
     text-transform: uppercase;
+}
+
+@media screen and (max-width: 810px) {
+    .subheader {
+        display: none;
+    }
 }

@@ -1,10 +1,11 @@
 import React from "react";
 import SubscribeEmailCard from "./SubscribeEmailCard";
 import SubscribeTelegramCard from "./SubscribeTelegramCard";
+import style from "../../styles/SubscribeCards/SubscribeCards.module.css";
 
 export default function SubscribeCards() {
     return(
-        <div style={{display: 'flex', gap: 50, marginBottom: 60, marginTop: 50}}>
+        <div className={style.subscribeContainer}>
             <SubscribeTelegramCard />
             <SubscribeEmailCard />
         </div>

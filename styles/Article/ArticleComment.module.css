@@ -11,7 +11,7 @@
     line-height: 38px;
     margin-bottom: 24px;
     text-transform: uppercase;
-    
+
 }
 
 .articleCommentContainer > textarea {
@@ -29,10 +29,10 @@
     font-size: 14px;
     font-weight: 400;
     font-family: 'Roboto';
-    letter-spacing: .5;
+    letter-spacing: .5px;
 }
 
-.articleCommentContainer > textarea:focus { 
+.articleCommentContainer > textarea:focus {
     outline: 2px solid #ECC911;
 }
 
@@ -95,4 +95,14 @@
 
 .articleCommentListItemComentText > b {
     margin-bottom: 10px;
+}
+
+@media screen and (max-width: 460px){
+    .articleCommentContainer > div {
+        flex-direction: column;
+    }
+
+    .articleCommentContainer > div > div {
+       margin-bottom: 10px;
+    }
 }

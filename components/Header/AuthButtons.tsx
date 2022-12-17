@@ -7,6 +7,7 @@ import Logo from "./Logo";
 import Input from "../UI/Input";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {login as Login, registration, setError} from "../../redux/user/userSlice";
+import Image from "next/image";
 
 export default function AuthButtons() {
     const dispatch = useAppDispatch();
@@ -19,6 +20,9 @@ export default function AuthButtons() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [fio, setFio] = useState('');
+
+    //burger menu
+    const [openMobileMenu, setOpenMobileMenu] = useState(false);
 
     const handleLogin = (e: any) => {
         e.preventDefault();
@@ -49,6 +53,31 @@ export default function AuthButtons() {
         <div className={styles.authButtonsContainer}>
             <Button text='Регистрация' handleClick={() => setOpenRegModal(true)} />
             <Button text='Войти' handleClick={() => setOpenLoginModal(true)} />
+
+            {/*burger menu for mobile*/}
+            <button className={styles.burgerBtn} onClick={() => setOpenMobileMenu(!openMobileMenu)}>
+                {openMobileMenu ? (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></svg>
+                ) : (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></svg>
+                )}
+            </button>
+            {
+                openMobileMenu && (
+                    <div className={`${styles.mobileMenu}`}>
+                        <Button text='Регистрация' handleClick={() => setOpenRegModal(true)} />
+                        <Button text='Войти' handleClick={() => setOpenLoginModal(true)} />
+                        <div>
+                            <Image src="/telegramIcon.svg" alt="telegram" width={20} height={20}/>
+                            <Image src="/whatsAppIcon.svg" alt="telegram" width={20} height={20}/>
+                            <Image src="/youtubeIcon.svg" alt="telegram" width={20} height={20}/>
+                            <Image src="/vkIcon.svg" alt="telegram" width={20} height={20}/>
+                            <Image src="/contacts.svg" alt="telegram" width={20} height={20}/>
+                        </div>
+                    </div>
+
+                )
+            }
 
             {/* login modal */}
             <Modal

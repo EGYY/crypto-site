@@ -5,17 +5,15 @@ import Modal from "../UI/Modal";
 import {FC, useEffect, useMemo, useState} from "react";
 import Input from "../UI/Input";
 import Select from "../UI/Selecet";
-import {_api_url, store} from "../../redux/store";
+import {_api_url} from "../../redux/store";
 import {IProject} from "../../redux/interfaces/project";
 import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {setFavourite, setProfile} from "../../redux/user/userSlice";
+import {setProfile} from "../../redux/user/userSlice";
 import {useLazyGetProfileQuery} from '../../redux/user/userApi';
-import {useRouter} from "next/router";
 import {getMainInfo} from "../../redux/main/mainSlice";
 
 const Article: FC<{ data: IProject }> = ({data}) => {
     const dispatch = useAppDispatch();
-    const router = useRouter();
     const {isAuth, profile} = useAppSelector(state => state.user);
     const [openModal, setOpenModal] = useState(false);
     const [sum, setSum] = useState('1');
@@ -208,7 +206,7 @@ const Article: FC<{ data: IProject }> = ({data}) => {
                     lineHeight: '38px',
                     textTransform: 'uppercase',
                 }}>{data?.title}</h2>
-                <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                <div className={'group-modal-inputs'}>
                     <Input value={sum}
                            onChange={(value) => {
                                if (value.length > 0) {

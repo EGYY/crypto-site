@@ -7,3 +7,48 @@
 .authButtonsContainer > button:nth-child(1) {
     margin-right: 10px;
 }
+
+.burgerBtn {
+    display: none;
+}
+
+.mobileMenu {
+    display: none;
+}
+
+
+@media screen and (max-width: 1300px) {
+    .authButtonsContainer {
+        margin-left: 10px;
+    }
+    .authButtonsContainer > button {
+        display: none;
+    }
+    .burgerBtn {
+        display: block !important;
+        background-color: #ecc911;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .mobileMenu {
+        padding: 0 20px 20px 20px;
+        position: absolute;
+        width: 100%;
+        left: 0;
+        bottom: -120px;
+        height: fit-content;
+        background-color: #333333;
+        flex-direction: column;
+        display: flex;
+        gap: 10px;
+    }
+
+    .mobileMenu > div {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+    }
+}
