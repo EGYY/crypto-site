@@ -31,7 +31,7 @@ function Profile() {
         if (data?.favourites?.length > 0) {
             const arr = data?.favourites.map(item => {
                 return ({
-                    id: item.id ?? item.id_project,
+                    id: item.id_project,
                     avatar: <img
                         src={`${_api_url}${item.cover}`}
                         onError={({ currentTarget }) => {
@@ -42,8 +42,8 @@ function Profile() {
                         height={40}
                         alt="Обложка проекта"
                     />,
-                    text: item.title ?? item.title_project,
-                    href: `/project/${item.id ?? item.id_project}`,
+                    text: item.title_project,
+                    href: `/project/${item.id_project}`,
                 })
             })
             return arr;
