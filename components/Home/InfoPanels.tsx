@@ -48,7 +48,7 @@ export default function InfoPanels() {
                         alt="Обложка статьи"
                     />,
                     text: item.title,
-                    href: `/`,
+                    href: `/article/${item.id}`,
                 })
             })
             return arr;

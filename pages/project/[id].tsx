@@ -23,7 +23,7 @@ const ProjectPage: FC<any> = ({project}) => {
 
 
     return (
-        <Wrapper>
+        <Wrapper description={`${project.title}. ${project.text}`} title={`${project.title}`}>
             <div className={styles.container}>
                 <div className='row'>
                     <div className='col-16'>

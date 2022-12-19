@@ -21,6 +21,9 @@
     line-height: 16px;
     margin: 0;
     color: #fff;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .profileButtonContainer > div > p:last-child {

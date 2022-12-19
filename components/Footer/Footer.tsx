@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "../../styles/Footer/Footer.module.css";
 import homeStyles from "../../styles/Home.module.css";
 import Logo from "../Header/Logo";
+import Link from "next/link";
 
 export default function Footer() {
     return (
@@ -12,10 +13,16 @@ export default function Footer() {
                     <div className={styles.logoContaner}>
                         <Logo />
                         <div className={styles.footerSocials}>
-                            <Image src="/telegramIcon.svg" alt="telegram" width={20} height={20} />
-                            <Image src="/whatsAppIcon.svg" alt="telegram" width={20} height={20} />
-                            <Image src="/youtubeIcon.svg" alt="telegram" width={20} height={20} />
-                            <Image src="/vkIcon.svg" alt="telegram" width={20} height={20} />
+                            <Link href={'https://t.me/zarabarahorosho2017'} target={'_blank'}>
+                                <Image src="/telegramIcon.svg" alt="telegram" width={20} height={20} />
+                            </Link>
+                            {/* <Image src="/whatsAppIcon.svg" alt="telegram" width={20} height={20} /> */}
+                            <Link href={'https://www.youtube.com/@zarabarapro/featured'} target={'_blank'}>
+                                <Image src="/youtubeIcon.svg" alt="telegram" width={20} height={20} />
+                            </Link>
+                            <Link href={'https://vk.com/zarabarahorosho'} target={'_blank'}>
+                                <Image src="/vkIcon.svg" alt="telegram" width={20} height={20} />
+                            </Link>
                         </div>
                     </div>
                     <div className={styles.footerMenu}>

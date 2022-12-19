@@ -18,21 +18,21 @@
     justify-content: space-between;
 }
 
-.subheader ul > li {
+.subheader ul > li > a {
     cursor: pointer;
     display: flex;
     align-items: center;
 }
 
-.subheader ul > li:hover > span {
+.subheader ul > li:hover > a > span {
     color: #999999;
 }
 
-.subheader  ul > li > img {
+.subheader  ul > li > a > img {
     margin-right: 10px;
 }
 
-.subheader  ul > li > span {
+.subheader  ul > li > a > span {
     font-weight: 400;
     font-size: 14px;
     color: #555555;

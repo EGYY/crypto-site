@@ -17,12 +17,15 @@ export interface IArticle {
     updated_at: string,
     is_favourite: boolean,
     project: number,
+    number_of_views: number,
 }
 
 export interface IProject {
     id: number,
     title: string,
     cover: string,
+    number_of_views: number,
+    created_at: string,
     user_review: number,
     is_active: boolean,
     how_many_days: number,
@@ -33,6 +36,7 @@ export interface IProject {
 
 export interface IProjectState {
     project: IProject,
+    article: IArticle,
     loading: boolean,
     error: string,
 }

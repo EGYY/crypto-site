@@ -130,15 +130,15 @@ const Article: FC<{ data: IProject }> = ({data}) => {
                     />
                     <ul>
                         <li>
-                            <div></div>
+                            <div>{data.number_of_views}</div>
                             кол.просмотров
                         </li>
                         <li>
-                            <div></div>
+                            <div>{data.comment_to_project?.length ?? 0}</div>
                             кол.коментариев
                         </li>
                         <li>
-                            <div></div>
+                            <div>{data.created_at}</div>
                             дата публикации
                         </li>
                     </ul>
@@ -164,11 +164,9 @@ const Article: FC<{ data: IProject }> = ({data}) => {
                     <ul>
                         <li>Работает уже <span>{totalDays.split(' ')[0]}</span>{totalDays.split(' ')[1]}</li>
                         <li>
-                            <div></div>
                             <span>{data?.user_review ? data.user_review.toFixed(1) : 0}</span> оценка пользователей
                         </li>
                         <li>
-                            <div></div>
                             статус: {data?.is_active ? 'Актуален' : 'Не актуален'}</li>
                     </ul>
                     {

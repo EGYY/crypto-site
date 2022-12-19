@@ -11,7 +11,7 @@ export default function SubscribeTelegramCard() {
                 <p>
                     Подписывайся на мой Telegram канал и всегда будь в курсе последних новостей
                 </p>
-                <Button text="TELEGRAM" />
+                <Button text="TELEGRAM" handleClick={() => window.open('https://t.me/zarabarahorosho2017', '_blank')} />
             </div>
         </div>
     );

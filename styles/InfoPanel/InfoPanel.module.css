@@ -64,6 +64,7 @@
     font-weight: 700;
     font-size: 14px;
     line-height: 16px;
+    overflow: hidden;
 }
 
 .infoPanelItemText {
@@ -74,6 +75,12 @@
     line-height: 16px;
     border-radius: 10px;
     text-transform: uppercase;
+}
+
+.infoPanelItemText > span {
+    max-width: 130px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
