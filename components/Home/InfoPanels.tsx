@@ -3,6 +3,7 @@ import Image from "next/image";
 import InfoPanel from "../InfoPanel/InfoPanel";
 import { useAppSelector } from "../../redux/hooks";
 import { _api_url } from "../../redux/store";
+import WhyUsInfoPanel from "../InfoPanel/WhyUsInfoPanel";
 
 export default function InfoPanels() {
     const { projects, articles, favorites } = useAppSelector(state => state.main);
@@ -85,17 +86,18 @@ export default function InfoPanels() {
     return (
         <div>
             <InfoPanel
-                icon={<Image src="/new.svg" alt="Кол-во участников блога" width={30} height={30} />}
+                icon={<Image src="/new.svg" alt="свежие статьи" width={30} height={30} />}
                 title="свежие статьи"
                 data={articlesData}
             />
+            <WhyUsInfoPanel />
             <InfoPanel
-                icon={<Image src="/idea.svg" alt="Кол-во участников блога" width={30} height={30} />}
+                icon={<Image src="/idea.svg" alt="свежие проекты" width={30} height={30} />}
                 title="свежие проекты"
                 data={projectsData}
             />
             <InfoPanel
-                icon={<Image src="/ranks.svg" alt="Кол-во участников блога" width={30} height={30} />}
+                icon={<Image src="/ranks.svg" alt="фавориты блога" width={30} height={30} />}
                 title="фавориты блога"
                 data={favoritesData}
             />

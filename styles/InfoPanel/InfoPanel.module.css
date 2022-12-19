@@ -10,11 +10,11 @@
     align-items: center;
 }
 
-.infoPanelHeader > img {
+.infoPanelHeader>img {
     margin-right: 10px;
 }
 
-.infoPanelHeader > h2 {
+.infoPanelHeader>h2 {
     font-weight: 700;
     font-size: 32px;
     line-height: 38px;
@@ -46,11 +46,11 @@
     margin-top: 10px;
 }
 
-.infoPanelItemAvatar > img {
+.infoPanelItemAvatar>img {
     border-radius: 10px;
 }
 
-.infoPanelItemAvatar > div {
+.infoPanelItemAvatar>div {
     position: absolute;
     right: 0;
     bottom: -10px;
@@ -77,7 +77,7 @@
     text-transform: uppercase;
 }
 
-.infoPanelItemText > span {
+.infoPanelItemText>span {
     max-width: 130px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -97,6 +97,33 @@
     width: 100%;
 }
 
+.infoPanelContentColumn>ol {
+    padding: 20px 30px;
+    margin: 0;
+    counter-reset: item;
+    background: #fff;
+    border-radius: 5px;
+}
+
+.infoPanelContentColumn>ol>li {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 40px;
+    display: block;
+}
+
+.infoPanelContentColumn>ol>li::before {
+    content: counter(item) ".";
+    counter-increment: item;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.infoPanelContentColumn>ol>li>span {
+    color: #F9AC30;
+    text-transform: uppercase;
+}
+
 @media screen and (max-width: 500px) {
     .infoPanelItem {
         width: 100%;
@@ -110,5 +137,9 @@
 @media screen and (max-width: 470px) {
     .infoPanelHeader {
         flex-direction: column;
+    }
+
+    .infoPanelHeader > h2 { 
+        text-align: center;
     }
 }
