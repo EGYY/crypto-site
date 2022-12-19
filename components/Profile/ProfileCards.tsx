@@ -1,11 +1,26 @@
 import Image from "next/image";
-import { useAppSelector } from "../../redux/hooks";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import styles from "../../styles/Cards/Card.module.css";
 import Card from "../Card/Card";
 import ProfileCard from "../Card/ProfileCard";
+import Button from "../UI/Button";
+import React from "react";
+import {useRouter} from "next/router";
+import {setAuth, setUser} from "../../redux/user/userSlice";
+import {User} from "../../redux/interfaces/user";
 
 export default function ProfileCards() {
     const {profile, user} = useAppSelector(state => state.user);
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
+    const handleLogout = async () => {
+        dispatch(setAuth(false));
+        dispatch(setUser({} as User));
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        await router.push('/');
+    }
 
     return (
         <div className={styles.cardContainer}>
@@ -19,6 +34,7 @@ export default function ProfileCards() {
                 label="Мой инвестиционный портфель"
                 text={`${Intl.NumberFormat('ru-RU', ).format(profile.my_investment_portfolio)} ₽`}
             />
+            <Button text='Выйти' handleClick={handleLogout} />
         </div>
     );
 }

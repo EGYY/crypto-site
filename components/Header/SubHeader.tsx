@@ -26,10 +26,10 @@ export default function SubHeader() {
                     </li>
                 </ul>
                 <ul>
-                    <li>
-                        <Image src="/mobile.svg" alt="telegram" width={20} height={20}/>
-                        <span>МОБИЛЬНАЯ ВЕРСИЯ</span>
-                    </li>
+                    {/*<li>*/}
+                    {/*    <Image src="/mobile.svg" alt="telegram" width={20} height={20}/>*/}
+                    {/*    <span>МОБИЛЬНАЯ ВЕРСИЯ</span>*/}
+                    {/*</li>*/}
                     <li>
                         <Image src="/contacts.svg" alt="telegram" width={20} height={20}/>
                         <span>КОНТАКТЫ</span>

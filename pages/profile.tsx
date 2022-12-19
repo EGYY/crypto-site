@@ -20,7 +20,7 @@ function Profile() {
     const router = useRouter();
     const {isAuth} = useAppSelector(state => state.user);
     const {data = {} as IProfile, isLoading} = useGetProfileQuery('', {refetchOnFocus: true});
-    
+
     useEffect(() => {
         if (data?.message === 'ok') {
             dispatch(setProfile(data));
@@ -44,6 +44,7 @@ function Profile() {
                     />,
                     text: item.title_project,
                     href: `/project/${item.id_project}`,
+
                 })
             })
             return arr;

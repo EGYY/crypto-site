@@ -29,3 +29,13 @@
     line-height: 13px;
     margin: 6px 0 0 0;
 }
+
+@media screen and (max-width: 530px) {
+    .profileButtonContainer > div {
+        display: none;
+    }
+
+    .profileButtonContainer {
+        margin: 0;
+    }
+}

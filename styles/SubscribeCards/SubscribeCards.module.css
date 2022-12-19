@@ -1,3 +1,10 @@
+.subscribeContainer {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 60px;
+    margin-top: 50px;
+}
+
 .telegramCard {
     background: #ECC911;
     border-radius: 10px;
@@ -65,3 +72,94 @@
     top: -50px;
     transform: rotate(15deg);
 }
+
+@media screen and (max-width: 1300px){
+    .subscribeContainer {
+        padding: 0 20px;
+    }
+
+    .telegramCard > img {
+        width: 150px;
+    }
+
+    .emailCard > img {
+        width: 150px;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    .telegramCard > img {
+        width: 130px;
+    }
+
+    .emailCard > img {
+        width: 130px;
+    }
+}
+
+@media screen and (max-width: 1100px){
+    .subscribeContainer {
+        /*flex-direction: column;*/
+    }
+
+    .telegramCard > img {
+        display: none;
+    }
+
+    .emailCard > img {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 900px){
+    .subscribeContainer {
+        flex-direction: column;
+    }
+    .telegramCard, .emailCard {
+        width: 100%;
+        max-width: 100%;
+    }
+    .telegramCard > img {
+        display: block;
+        width: 200px;
+    }
+
+    .emailCard > img {
+        display: block;
+        width: 200px;
+    }
+}
+
+@media screen and (max-width: 640px){
+    .telegramCard > img {
+        display: none;
+    }
+
+    .emailCard > img {
+        display: none;
+    }
+
+    .emailCard > div {
+        left: 10%;
+    }
+    .telegramCard > div {
+        left: 10%;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .emailCard, .telegramCard{
+        height: 220px;
+    }
+
+}
+
+@media screen and (max-width: 360px){
+    .emailCard, .telegramCard{
+        height: 270px;
+    }
+
+}
+
+
+

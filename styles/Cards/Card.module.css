@@ -6,6 +6,10 @@
     margin: 30px 0;
 }
 
+.cardContainer > button {
+    display: none;
+}
+
 .card {
     background: #333333;
     border-radius: 10px;
@@ -73,4 +77,24 @@
     /* line-height: 23px; */
     margin: 0;
     text-transform: uppercase;
+}
+
+@media screen and (max-width: 1300px){
+    .cardContainer > button {
+        display: block;
+    }
+
+}
+
+@media screen and (max-width: 1000px){
+    .cardContainer {
+        flex-direction: column;
+    }
+    .card {
+        width: 100%;
+    }
+
+    .profileCard {
+        width: 100%;
+    }
 }

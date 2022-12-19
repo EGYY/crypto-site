@@ -52,3 +52,9 @@
     cursor: pointer;
     color: #fff;
 }
+
+@media screen and (max-width: 340px){
+    .tags > li:last-child {
+        display: none;
+    }
+}

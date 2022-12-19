@@ -1,19 +1,20 @@
-import { toast } from 'react-toastify';
+import {toast} from 'react-toastify';
 import Button from "../UI/Button";
 import styles from "../../styles/Article/Article.module.css";
 import Modal from "../UI/Modal";
-import { FC, useEffect, useMemo, useState } from "react";
+import {FC, useEffect, useMemo, useState} from "react";
 import Input from "../UI/Input";
 import Select from "../UI/Selecet";
-import { _api_url } from "../../redux/store";
-import { IProject } from "../../redux/interfaces/project";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { setFavourite, setProfile } from "../../redux/user/userSlice";
-import { useLazyGetProfileQuery } from '../../redux/user/userApi';
+import {_api_url} from "../../redux/store";
+import {IProject} from "../../redux/interfaces/project";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
+import {setProfile} from "../../redux/user/userSlice";
+import {useLazyGetProfileQuery} from '../../redux/user/userApi';
+import {getMainInfo} from "../../redux/main/mainSlice";
 
-const Article: FC<{ data: IProject }> = ({ data }) => {
+const Article: FC<{ data: IProject }> = ({data}) => {
     const dispatch = useAppDispatch();
-    const { isAuth, profile } = useAppSelector(state => state.user);
+    const {isAuth, profile} = useAppSelector(state => state.user);
     const [openModal, setOpenModal] = useState(false);
     const [sum, setSum] = useState('1');
     const [currency, setCurrency] = useState('₽');
@@ -23,7 +24,7 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
     useEffect(() => {
         if (isAuth && !profile.message) {
             getProfile('');
-        } 
+        }
     }, [isAuth, profile])
 
     useEffect(() => {
@@ -47,7 +48,7 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
 
     const totalDays = useMemo(() => {
         if (data?.how_many_days > 0) {
-            return Intl.NumberFormat('ru', { style: 'unit', unit: 'day', unitDisplay: 'long' }).format(data.how_many_days)
+            return Intl.NumberFormat('ru', {style: 'unit', unit: 'day', unitDisplay: 'long'}).format(data.how_many_days)
         } else {
             return '0 дней'
         }
@@ -62,18 +63,13 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                     'Content-Type': 'application/json',
                     Authorization: `Token ${localStorage.getItem('token')}`
                 },
-                body: JSON.stringify({ project: data.id }),
+                body: JSON.stringify({project: data.id}),
             })
 
             if (!response.ok) {
                 throw Error('Ошибка добавления в избранное');
             }
-            const favourite = {
-                id_project: data.id,
-                title_project: data.title,
-                cover: data.cover
-            }
-            dispatch(setFavourite(favourite));
+            getProfile('');
             toast('❤️ Проект усешно добавлен в избранное!')
         } catch (e: any) {
             toast(e.message);
@@ -99,23 +95,24 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
             if (!response.ok) {
                 throw Error('Ошибка добавления проекта в портфель');
             }
+            const json = await  response.json();
+
+            if (json.message) {
+                toast(json.message)
+            }
             setOpenModal(false);
-            toast('✅ Проект усешно добавлен в портфель!')
-            // const json = await response.json();
+            dispatch(getMainInfo());
         } catch (e: any) {
             toast(e.message);
         }
     }
 
-    const handleShareProject = () => {
-        if (navigator?.share) {
-            navigator.share({
-                url: `${_api_url}/project/${data.id}`,
-                text: data.article_to_project?.length > 0 ? data.article_to_project[0].text : '',
-                title: data.title
-            })
-        } else {
-            toast('Невозможно поделиться ссылкой на проект')
+    const handleShareProject = async () => {
+        try {
+            await navigator.clipboard.writeText(`https://zarabarahorosho.pro/project/${data.id}`);
+            toast('Ссылка на проект успешно скопирована!')
+        } catch (err) {
+            toast('Ошибка копирования!')
         }
     }
 
@@ -125,25 +122,35 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                 <div className={styles.articleHeader}>
                     <img
                         src={`${_api_url}${data.cover}`}
-                        onError={({ currentTarget }) => {
+                        onError={({currentTarget}) => {
                             currentTarget.onerror = null;
                             currentTarget.src = "/articleBG.png";
                         }}
                         alt="article background"
                     />
                     <ul>
-                        <li><div></div>кол.просмотров</li>
-                        <li><div></div>кол.коментариев</li>
-                        <li><div></div>дата публикации</li>
+                        <li>
+                            <div></div>
+                            кол.просмотров
+                        </li>
+                        <li>
+                            <div></div>
+                            кол.коментариев
+                        </li>
+                        <li>
+                            <div></div>
+                            дата публикации
+                        </li>
                     </ul>
                     <div>
-                        <Button text="Поделиться" style={{ marginRight: 20 }} handleClick={handleShareProject} />
-                        <Button 
+                        <Button text="Поделиться" style={{marginRight: 20}} handleClick={handleShareProject}/>
+                        <Button
                             text={inFavorite ? 'В избранном' : 'В избранное'}
                             handleClick={() => {
                                 if (isAuth && !inFavorite) {
                                     addToFavourite();
                                 } else if (inFavorite) {
+                                    toast('Уже в избранном')
                                     return;
                                 } else {
                                     toast('❤️ Для добавления проекта в избранное необходимо авторизоваться')
@@ -156,8 +163,13 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                     <h2>{data?.title}</h2>
                     <ul>
                         <li>Работает уже <span>{totalDays.split(' ')[0]}</span>{totalDays.split(' ')[1]}</li>
-                        <li><div></div><span>{data?.user_review ? data.user_review.toFixed(1) : 0}</span> оценка пользователей</li>
-                        <li><div></div>статус: {data?.is_active ? 'Актуален' : 'Не актуален'}</li>
+                        <li>
+                            <div></div>
+                            <span>{data?.user_review ? data.user_review.toFixed(1) : 0}</span> оценка пользователей
+                        </li>
+                        <li>
+                            <div></div>
+                            статус: {data?.is_active ? 'Актуален' : 'Не актуален'}</li>
                     </ul>
                     {
                         data?.article_to_project?.length > 0 && (
@@ -167,7 +179,7 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                     <div>
                         <div>
                             <Button
-                                style={{ marginRight: 15 }}
+                                style={{marginRight: 15}}
                                 handleClick={() => {
                                     if (data.link_to_site) {
                                         window.open(data.link_to_site, '_blank')
@@ -177,7 +189,7 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                                 }}
                                 text="Перейти на сайт"
                             />
-                            <Button text="В портфель" handleClick={() => setOpenModal(true)} />
+                            <Button text="В портфель" handleClick={() => setOpenModal(true)}/>
                         </div>
                         <p>Нашли ошибку?</p>
                     </div>
@@ -194,26 +206,26 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                     lineHeight: '38px',
                     textTransform: 'uppercase',
                 }}>{data?.title}</h2>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div className={'group-modal-inputs'}>
                     <Input value={sum}
-                        onChange={(value) => {
-                            if (value.length > 0) {
-                                value.match(/^[0-9]+$/) && setSum(value)
-                            } else {
-                                setSum('');
-                            }
-                        }
-                        }
-                        label="Сумма внесенная в проект"
+                           onChange={(value) => {
+                               if (value.length > 0) {
+                                   value.match(/^[0-9]+$/) && setSum(value)
+                               } else {
+                                   setSum('');
+                               }
+                           }
+                           }
+                           label="Сумма внесенная в проект"
                     />
                     <Select
                         label="Валюта"
                         value={currency}
-                        options={[{ id: 1, value: '₽', title: '₽' }, { id: 2, value: '$', title: '$' }]}
+                        options={[{id: 1, value: '₽', title: '₽'}, {id: 2, value: '$', title: '$'}]}
                         onChange={setCurrency}
                     />
                 </div>
-                {sum.length === 0 && <div className='error-msg'>Поле с суммой не должно быть пустым</div> }
+                {sum.length === 0 && <div className='error-msg'>Поле с суммой не должно быть пустым</div>}
                 {/* <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <Input value="100 000 000 000 000 000 000" label="Сумма снятия из проекта" onChange={() => console.log(1)} />
                     <Select
@@ -223,15 +235,15 @@ const Article: FC<{ data: IProject }> = ({ data }) => {
                         onChange={(value) => console.log(value)}
                     />
                 </div> */}
-                <div style={{ display: 'flex', marginTop: 64 }}>
-                    <Button text="Сохранить" style={{ marginRight: 16 }} handleClick={() => {
+                <div style={{display: 'flex', marginTop: 64}}>
+                    <Button text="Сохранить" style={{marginRight: 16}} handleClick={() => {
                         if (isAuth && +sum > 0) {
                             addProject();
                         } else {
                             toast('Для добавления проекта в портфолио необходимо авторизоваться')
                         }
-                    }} />
-                    <Button text="Отменить" handleClick={() => setOpenModal(false)} />
+                    }}/>
+                    <Button text="Отменить" handleClick={() => setOpenModal(false)}/>
                 </div>
             </Modal>
         </>
