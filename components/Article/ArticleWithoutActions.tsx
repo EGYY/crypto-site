@@ -33,7 +33,7 @@ const ArticleWithoutActions: FC<{ data: IArticle }> = ({ data }) => {
                             кол.просмотров
                         </li>
                         <li>
-                            <div>{data?.created_at && new Intl.DateTimeFormat('ru-RU', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'}).format(new Date(data.created_at))}</div>
+                            <div>{data?.created_at && new Intl.DateTimeFormat('ru-RU', {year: 'numeric', month: 'long', day: 'numeric'}).format(new Date(data.created_at))}</div>
                             дата публикации
                         </li>
                     </ul>

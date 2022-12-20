@@ -80,6 +80,12 @@
     width: 100%;
 }
 
+.articleCommentListItemCoomentContent > div:first-child {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .articleCommentListItemCoomentContent > span {
     position: absolute;
     top: 0;

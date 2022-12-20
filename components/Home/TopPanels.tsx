@@ -2,6 +2,7 @@ import React, {useMemo} from "react";
 import Image from "next/image";
 import TopPanel from "../TopPanel/TopPanel";
 import {useAppSelector} from "../../redux/hooks";
+import styles from "../../styles/TopPanel/TopPanel.module.css";
 
 export default function TopPanels() {
     const {main_info} = useAppSelector(state => state.main);
@@ -37,7 +38,7 @@ export default function TopPanels() {
     }, [main_info.my_top_five]);
 
     return (
-        <div style={{marginLeft: 20, marginTop: 30}}>
+        <div className={styles.topPanelContainer}>
             <TopPanel
                 icon={<Image src="/flag.svg" alt="Аватар" width={40} height={40} />}
                 title="топ-5 Самых активных пользователей"
