@@ -95,7 +95,7 @@ const Article: FC<{ data: IProject, html?: string }> = ({data, html}) => {
             if (!response.ok) {
                 throw Error('Ошибка добавления проекта в портфель');
             }
-            const json = await  response.json();
+            const json = await response.json();
 
             if (json.message) {
                 toast(json.message)
@@ -137,10 +137,18 @@ const Article: FC<{ data: IProject, html?: string }> = ({data, html}) => {
                             <div>{data.comment_to_project?.length ?? 0}</div>
                             кол.коментариев
                         </li>
-                        <li>
-                            <div>{data.created_at}</div>
-                            дата публикации
-                        </li>
+                        {data?.created_at && (
+                            <li>
+                                <div>
+                                    {new Intl.DateTimeFormat("ru-RU", {
+                                        month: "long",
+                                        day: "numeric",
+                                    }).format(new Date(data.created_at))}
+                                </div>
+                                дата публикации
+                            </li>
+                        )
+                        }
                     </ul>
                     <div>
                         <Button text="Поделиться" style={{marginRight: 20}} handleClick={handleShareProject}/>
@@ -169,7 +177,7 @@ const Article: FC<{ data: IProject, html?: string }> = ({data, html}) => {
                         <li>
                             статус: {data?.is_active ? 'Актуален' : 'Не актуален'}</li>
                     </ul>
-                    {html && <div dangerouslySetInnerHTML={{ __html: html }}></div>}
+                    {html && <div dangerouslySetInnerHTML={{__html: html}}></div>}
                     <div>
                         <div>
                             <Button
