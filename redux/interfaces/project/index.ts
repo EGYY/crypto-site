@@ -18,6 +18,7 @@ export interface IArticle {
     is_favourite: boolean,
     project: number,
     number_of_views: number,
+    notion_id: string,
 }
 
 export interface IProject {

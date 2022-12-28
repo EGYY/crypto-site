@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import type { AppProps } from 'next/app';
 import { Provider } from 'react-redux';
+import NextNProgress from 'nextjs-progressbar';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { store } from '../redux/store';
@@ -28,6 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <Provider store={store}>
+      <NextNProgress color="#ECC911" startPosition={0.3} stopDelayMs={200} height={3} showOnShallow={true} />
       <Component {...pageProps} />
       <ToastContainer theme="dark" position="bottom-center" />
     </Provider>

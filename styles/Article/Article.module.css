@@ -109,19 +109,8 @@
     margin-bottom: 20px;
 }
 
-.articleContent > div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.articleContent > div > p {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    color: #676767;
-    cursor: pointer;
-    text-transform: uppercase;
+.articleContent > div img {
+    max-width: 100%;
 }
 
 @media screen and (max-width: 860px) {

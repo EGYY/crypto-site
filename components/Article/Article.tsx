@@ -12,7 +12,7 @@ import {setProfile} from "../../redux/user/userSlice";
 import {useLazyGetProfileQuery} from '../../redux/user/userApi';
 import {getMainInfo} from "../../redux/main/mainSlice";
 
-const Article: FC<{ data: IProject }> = ({data}) => {
+const Article: FC<{ data: IProject, html?: string }> = ({data, html}) => {
     const dispatch = useAppDispatch();
     const {isAuth, profile} = useAppSelector(state => state.user);
     const [openModal, setOpenModal] = useState(false);
@@ -169,11 +169,7 @@ const Article: FC<{ data: IProject }> = ({data}) => {
                         <li>
                             статус: {data?.is_active ? 'Актуален' : 'Не актуален'}</li>
                     </ul>
-                    {
-                        data?.article_to_project?.length > 0 && (
-                            <p>{data.article_to_project[0].text}</p>
-                        )
-                    }
+                    {html && <div dangerouslySetInnerHTML={{ __html: html }}></div>}
                     <div>
                         <div>
                             <Button

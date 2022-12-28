@@ -7,14 +7,14 @@ import {_api_url} from "../../redux/store";
 import { IArticle } from "../../redux/interfaces/project";
 import ArticleWithoutActions from "../../components/Article/ArticleWithoutActions";
 
-const ArticlePage: FC<any> = ({article}) => {
+const ArticlePage: FC<any> = ({article, html}) => {
     return (
         <Wrapper description={`${article.title}. ${article.text}`} title={`${article.title}`}>
             <div className={styles.container}>
                 <div className='row'>
                     <div className='col-16'>
                         <Cards />
-                        <ArticleWithoutActions data={article}/>
+                        <ArticleWithoutActions data={article} html={html}/>
                     </div>
                     <div className='col-8'>
                         <TopPanels />
@@ -27,6 +27,20 @@ const ArticlePage: FC<any> = ({article}) => {
 
 export const  getServerSideProps = async (context: any) => {
     const id = context?.params?.id;
+    let html = ''
+
+    const getNotionHtml = async (id: string) => {
+        try {
+            const url = `${_api_url}/api/v1/blog/simple/?notion=${id}`
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Ошибка получения статьи с notion');
+            }
+            return response.text();
+        } catch(e: any) {
+            return '';
+        }
+    }
 
     const getArticle = async (id: number): Promise<IArticle> => {
         try {
@@ -39,17 +53,23 @@ export const  getServerSideProps = async (context: any) => {
                 throw Error('Ошибка запроса!')
             }
             const data = await response.json();
+            if (data?.notion_id) {
+                html = await getNotionHtml(data.notion_id);
+            }
             return data;
         } catch (e: any) {
             return {} as IArticle;
         }
     }
 
+
+
     const article = await getArticle(id);
 
     return {
         props: {
-            article
+            article,
+            html,
         },
     }
 }

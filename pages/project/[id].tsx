@@ -11,7 +11,7 @@ import { IProject } from "../../redux/interfaces/project";
 import { setProject } from "../../redux/project/projectSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
-const ProjectPage: FC<any> = ({project}) => {
+const ProjectPage: FC<any> = ({project, html}) => {
     const dispatch = useAppDispatch();
     const {project: projectState} = useAppSelector(state => state.project);
 
@@ -28,7 +28,7 @@ const ProjectPage: FC<any> = ({project}) => {
                 <div className='row'>
                     <div className='col-16'>
                         <Cards />
-                        <Article data={projectState}/>
+                        <Article data={projectState} html={html}/>
                         <ArticleComment />
                         <ArticleListComments data={projectState?.comment_to_project ?? []} />
                     </div>
@@ -43,6 +43,21 @@ const ProjectPage: FC<any> = ({project}) => {
 
 export const  getServerSideProps = async (context: any) => {
     const id = context?.params?.id;
+    let html = ''
+
+    const getNotionHtml = async (id: string) => {
+        try {
+            const url = `${_api_url}/api/v1/blog/simple/?notion=${id}`
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Ошибка получения статьи с notion');
+            }
+            return response.text();
+        } catch(e: any) {
+            console.log('notion err', e.message);
+            return '';
+        }
+    }
 
     const getProject = async (id: number): Promise<IProject> => {
         try {
@@ -55,6 +70,11 @@ export const  getServerSideProps = async (context: any) => {
                 throw Error('Ошибка запроса!')
             }
             const data = await response.json();
+            if (data?.article_to_project?.length > 0) {
+                if (data.article_to_project[0]?.notion_id) {
+                    html = await getNotionHtml(data.article_to_project[0].notion_id);
+                }
+            }
             return data;
         } catch (e: any) {
             return {} as IProject;
@@ -65,7 +85,8 @@ export const  getServerSideProps = async (context: any) => {
 
     return {
         props: {
-            project
+            project,
+            html,
         },
     }
 }
