@@ -29,6 +29,7 @@ export interface IProject {
     created_at: string,
     user_review: number,
     is_active: boolean,
+    status: string,
     how_many_days: number,
     link_to_site: string | null,
     article_to_project: IArticle[],

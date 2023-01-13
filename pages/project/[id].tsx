@@ -70,6 +70,7 @@ export const  getServerSideProps = async (context: any) => {
                 throw Error('Ошибка запроса!')
             }
             const data = await response.json();
+            console.log(data)
             if (data?.article_to_project?.length > 0) {
                 if (data.article_to_project[0]?.notion_id) {
                     html = await getNotionHtml(data.article_to_project[0].notion_id);

@@ -40,7 +40,6 @@
 
 .infoPanelItemAvatar {
     position: relative;
-    margin-right: 10px;
     height: 40px;
     width: 40px;
     margin-top: 10px;
@@ -75,12 +74,44 @@
     line-height: 16px;
     border-radius: 10px;
     text-transform: uppercase;
+    width: 162px;
+    height: 90px;
+    position: relative;
+    display: inline-block;
+}
+
+.infoPanelItemText > p {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+            line-clamp: 3; 
+    -webkit-box-orient: vertical;
 }
 
 .infoPanelItemText>span {
     max-width: 130px;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.infoPanelItemText > div {
+        visibility: hidden;
+        width: 150px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+      
+        /* Position the tooltip */
+        position: absolute;
+        z-index: 1;
+}
+
+.infoPanelItemText:hover > div {
+    visibility: visible;
 }
 
 

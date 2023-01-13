@@ -89,17 +89,20 @@ export default function InfoPanels() {
                 icon={<Image src="/new.svg" alt="свежие статьи" width={30} height={30} />}
                 title="свежие статьи"
                 data={articlesData}
+                showAll={true}
             />
             <WhyUsInfoPanel />
             <InfoPanel
                 icon={<Image src="/idea.svg" alt="свежие проекты" width={30} height={30} />}
                 title="свежие проекты"
                 data={projectsData}
+                showAll={true}
             />
             <InfoPanel
                 icon={<Image src="/ranks.svg" alt="фавориты блога" width={30} height={30} />}
                 title="фавориты блога"
                 data={favoritesData}
+                showAll={true}
             />
         </div>
     );
