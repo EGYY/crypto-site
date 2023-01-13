@@ -4,10 +4,11 @@ import InfoPanel from "../InfoPanel/InfoPanel";
 import { useAppSelector } from "../../redux/hooks";
 import { _api_url } from "../../redux/store";
 import WhyUsInfoPanel from "../InfoPanel/WhyUsInfoPanel";
+import {useRouter} from "next/router";
 
 export default function InfoPanels() {
     const { projects, articles, favorites } = useAppSelector(state => state.main);
-
+    const navigate = useRouter();
     const projectsData = useMemo(() => {
         if (projects.length > 0) {
             const arr = projects.map(item => {
@@ -89,20 +90,20 @@ export default function InfoPanels() {
                 icon={<Image src="/new.svg" alt="свежие статьи" width={30} height={30} />}
                 title="свежие статьи"
                 data={articlesData}
-                showAll={true}
+                redirect={() => navigate.push('/articles')}
             />
             <WhyUsInfoPanel />
             <InfoPanel
                 icon={<Image src="/idea.svg" alt="свежие проекты" width={30} height={30} />}
                 title="свежие проекты"
                 data={projectsData}
-                showAll={true}
+                redirect={() => navigate.push('/projects')}
             />
             <InfoPanel
                 icon={<Image src="/ranks.svg" alt="фавориты блога" width={30} height={30} />}
                 title="фавориты блога"
                 data={favoritesData}
-                showAll={true}
+                redirect={() => navigate.push('/favorites')}
             />
         </div>
     );

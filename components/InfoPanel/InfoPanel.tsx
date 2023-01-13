@@ -10,22 +10,30 @@ interface ComponentProps {
   title: string;
   data: any[];
   showAll?: boolean;
+  redirect?: () => void,
 }
 
 const InfoPanel: FC<ComponentProps> = (props) => {
-  const { icon, title, data, showAll } = props;
+  const { icon, title, data, showAll, redirect } = props;
   const [expanded, setExpanded] = useState(false);
   return (
     <div className={styles.infoPanel}>
       <div className={styles.infoPanelHeader}>
         {icon}
         <h2>{title}</h2>
-        {showAll && data?.length > 4 && (
+        {showAll && (
           <Button
             style={{ marginLeft: "auto" }}
             text={expanded ? "Скрыть" : "Показать все"}
             handleClick={() => setExpanded(!expanded)}
           />
+        )}
+        {!showAll && redirect && (
+            <Button
+                style={{ marginLeft: "auto" }}
+                text={"Показать все"}
+                handleClick={() => redirect()}
+            />
         )}
       </div>
       {!expanded ? (
