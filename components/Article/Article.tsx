@@ -267,15 +267,6 @@ const Article: FC<{ data: IProject; html?: string }> = ({data, html}) => {
                 {sum.length === 0 && (
                     <div className="error-msg">Поле с суммой не должно быть пустым</div>
                 )}
-                {/* <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Input value="100 000 000 000 000 000 000" label="Сумма снятия из проекта" onChange={() => console.log(1)} />
-                    <Select
-                        label="Валюта"
-                        value={"$"}
-                        options={[{ id: 1, value: '₽', title: '₽' }, { id: 2, value: '$', title: '$' }]}
-                        onChange={(value) => console.log(value)}
-                    />
-                </div> */}
                 <div style={{display: "flex", marginTop: 64}}>
                     <Button
                         text="Сохранить"

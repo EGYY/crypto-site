@@ -9,7 +9,7 @@ import ArticleWithoutActions from "../../components/Article/ArticleWithoutAction
 
 const ArticlePage: FC<any> = ({article, html}) => {
     return (
-        <Wrapper description={`${article.title}. ${article.text}`} title={`${article.title}`}>
+        <Wrapper description={`Статья #${article.id}`}>
             <div className={styles.container}>
                 <div className='row'>
                     <div className='col-16'>
