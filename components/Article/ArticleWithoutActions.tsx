@@ -43,6 +43,7 @@ const ArticleWithoutActions: FC<{ data: IArticle; html?: string }> = ({
                   new Intl.DateTimeFormat("ru-RU", {
                     month: "long",
                     day: "numeric",
+                    year: "numeric",
                   }).format(new Date(data.created_at))}
               </div>
               дата публикации

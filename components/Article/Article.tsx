@@ -165,6 +165,7 @@ const Article: FC<{ data: IProject; html?: string }> = ({data, html}) => {
                                     {new Intl.DateTimeFormat("ru-RU", {
                                         month: "long",
                                         day: "numeric",
+                                        year: "numeric",
                                     }).format(new Date(data.created_at))}
                                 </div>
                                 дата публикации

@@ -13,6 +13,7 @@ export interface IUserResponse {
     "user": User,
     "message": string,
     "username": string,
+    "active": boolean,
 }
 
 export interface IUserState {
@@ -21,6 +22,8 @@ export interface IUserState {
     isAuth: boolean,
     loading: boolean,
     error: string,
+    active: boolean,
+
 }
 
 export interface IUserBodyLogin {

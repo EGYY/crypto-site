@@ -3,7 +3,6 @@ import {_api_url} from "../store";
 import {IProfileFavorite, IUserResponse, IUserState, Profile, User} from "../interfaces/user";
 import {IUserBodyRegistration} from "../interfaces/user";
 import {IUserBodyLogin} from "../interfaces/user";
-import { IProject } from "../interfaces/project";
 
 export const registration = createAsyncThunk(
     'user/registration',
@@ -62,6 +61,7 @@ const initialState: IUserState = {
     profile: {} as Profile,
     isAuth: false,
     loading: false,
+    active: true,
     error: '',
 }
 
@@ -86,6 +86,9 @@ const userSlice = createSlice({
         },
         setFavourite(state, action: PayloadAction<IProfileFavorite>) {
             state.profile.favourites.unshift(action.payload);
+        },
+        setActive(state, action: PayloadAction<boolean>) {
+            state.active = action.payload;
         }
     },
     extraReducers: {
@@ -114,6 +117,7 @@ const userSlice = createSlice({
             state.loading = false;
             state.user = {username: action.payload.username, email: '', full_name: ''};
             state.isAuth = true;
+            state.active = action.payload.active;
             localStorage.setItem('token', action.payload.token);
             localStorage.setItem('user', JSON.stringify({username: action.payload.username, email: '', full_name: ''}))
         },
