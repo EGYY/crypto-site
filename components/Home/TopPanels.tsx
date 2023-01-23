@@ -24,11 +24,11 @@ export default function TopPanels() {
 
     const topInvests = useMemo(() => {
         if (main_info.my_top_five instanceof Array && main_info.my_top_five.length > 0) {
-            const arr = main_info.my_top_five.map((item, idx) => {
+            const arr = main_info.my_top_five.map((item) => {
                 return {
-                    id: idx,
+                    id: item.id,
                     avatar: <Image src="/infoPanelAvatar.png" alt="Аватар" width={30} height={30} />,
-                    name: item,
+                    name: item.title,
                 }
             });
             return arr;
@@ -48,6 +48,7 @@ export default function TopPanels() {
             <TopPanel
                 icon={<Image src="/moneyChart.svg" alt="Аватар" width={40} height={40} />}
                 title="топ 5 “Моих инвестиций” "
+                withRoute={true}
                 items={topInvests}
             />
         </div>

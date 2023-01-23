@@ -92,7 +92,7 @@ const initialState: IMainState = {
         sum_investments: 0,
         most_active_user: [],
         private_club_participants: 0,
-        my_top_five: "Добавленных проектов пока нет"
+        my_top_five: [],
     },
     loading_main_info: false,
     projects: [],

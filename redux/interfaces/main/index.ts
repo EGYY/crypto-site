@@ -3,7 +3,7 @@ export interface IGetInfoResponse {
     sum_investments: number,
     most_active_user: string[],
     private_club_participants: number,
-    my_top_five: string[] | string
+    my_top_five: {id: number, title: string}[]
 }
 
 export interface IMainState {

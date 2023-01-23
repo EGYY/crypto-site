@@ -5,11 +5,12 @@ import styles from "../../styles/TopPanel/TopPanel.module.css";
 interface ComponentProps {
     icon: JSX.Element,
     title: string,
-    items: any[]
+    items: any[],
+    withRoute?: boolean,
 }
 
 const TopPanel: FC<ComponentProps> = (props) => {
-    const {icon, title, items} = props;
+    const {icon, title, items, withRoute} = props;
 
     return(
         <div className={styles.topPanel}>
@@ -20,7 +21,7 @@ const TopPanel: FC<ComponentProps> = (props) => {
             <div className={styles.topPanelContent}>
                 {items.length > 0 ? (
                     <>
-                        {items.map((item, idx) => <TopPanelItem key={idx} item={item} />)}
+                        {items.map((item) => <TopPanelItem key={item.id} item={item} withRoute={withRoute} />)}
                     </>
                 ) : <div>Список пока пуст</div>}
             </div>
