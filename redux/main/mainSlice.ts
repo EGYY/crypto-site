@@ -119,7 +119,7 @@ const mainSlice = createSlice(
             setPrivateClubParticipants(state, action: PayloadAction<number>) {
                 state.main_info.private_club_participants = action.payload;
             },
-            setMyTopFive(state, action: PayloadAction<Array<string> | string>) {
+            setMyTopFive(state, action: PayloadAction<Array<any>>) {
                 state.main_info.my_top_five = action.payload;
             },
             setArticles(state, action: PayloadAction<IGetProjects[]>) {
