@@ -8,11 +8,13 @@ interface ComponentProps {
         avatar: JSX.Element;
         text: string;
         href: string;
-    }
+        created_at?: string;
+    },
+    type?: 'top5'
 }
 
 export const InvestmentListItem: FC<ComponentProps> = (props) => {
-    const { item } = props;
+    const { item, type } = props;
     return (
         <Link
             href={item.href}
@@ -46,6 +48,9 @@ export const InvestmentListItem: FC<ComponentProps> = (props) => {
                     {item.text}
                 </span>
                 <div>{item.text}</div>
+                {type === 'top5' && item.created_at && (
+                    <p style={{fontSize: 14, fontWeight: 300 }}>{new Date(item.created_at).toLocaleDateString()}</p>
+                )}
             </div>
         </Link>
     )

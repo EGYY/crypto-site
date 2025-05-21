@@ -40,7 +40,7 @@ export const InvestmentList: FC<ComponentProps> = (props) => {
                                 <>
                                     {data?.slice(0, type === 'top5' ? 5 : 3).map((item) => {
                                         return (
-                                            <InvestmentListItem key={item.id} item={item} />
+                                            <InvestmentListItem key={item.id} item={item} type={type} />
                                         );
                                     })}
                                 </>
