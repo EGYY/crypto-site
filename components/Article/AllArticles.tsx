@@ -1,14 +1,17 @@
-import React, {useEffect, useMemo} from 'react';
-import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {getArticles} from "../../redux/main/mainSlice";
-import {_api_url} from "../../redux/store";
+import React, { useEffect, useMemo } from 'react';
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getArticles } from "../../redux/main/mainSlice";
+import { _api_url } from "../../redux/store";
 import styles from "../../styles/InfoPanel/InfoPanel.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 const AllArticles = () => {
     const dispatch = useAppDispatch();
-    const {articles} = useAppSelector(state => state.main);
+    const router = useRouter();
+    const { query } = router;
+    const { articles } = useAppSelector(state => state.main);
 
     useEffect(() => {
         if (articles.length === 0) {
@@ -18,12 +21,19 @@ const AllArticles = () => {
 
     const articlesData = useMemo(() => {
         if (articles.length > 0) {
-            const arr = articles.map(item => {
+            let filteredData = articles;
+            if (query.type === 'news') {
+                filteredData = articles.filter(item => item.is_news === true);
+            }
+            if (query.type === 'interesting') {
+                filteredData = articles.filter(item => item.is_interesting === true);
+            }
+            const arr = filteredData.map(item => {
                 return ({
                     id: item.id,
                     avatar: <img
                         src={`${_api_url}${item.cover}`}
-                        onError={({currentTarget}) => {
+                        onError={({ currentTarget }) => {
                             currentTarget.onerror = null;
                             currentTarget.src = "/infoPanelAvatar.png";
                         }}
@@ -39,16 +49,38 @@ const AllArticles = () => {
         } else {
             return []
         }
-    }, [articles])
+    }, [articles, query])
+
+    const title = useMemo(() => {
+        switch (query.type) {
+            case 'news':
+                return 'последние новости по проектам'
+            case 'interesting':
+                return 'Интересные статьи о финансах'
+            default:
+                return 'свежие проекты'
+        }
+    }, [query])
+
+    const icon = useMemo(() => {
+        switch (query.type) {
+            case 'news':
+                return '/finance-icon.png'
+            case 'interesting':
+                return '/ranks.svg'
+            default:
+                return '/new.svg'
+        }
+    }, [query])
 
     return (
         <div className={styles.infoPanel}>
             <div className={styles.infoPanelHeader}>
-                <Image src="/new.svg" alt="свежие статьи" width={30} height={30}/>
-                <h2>свежие статьи</h2>
+                <Image src={icon} alt={title} width={30} height={30} />
+                <h2>{title}</h2>
             </div>
             <div className={styles.infoPanelContentColumn}>
-                {articlesData?.length > 0 && (
+                {articlesData?.length > 0 ? (
                     <>
                         {articlesData.map((item) => {
                             return (
@@ -59,7 +91,7 @@ const AllArticles = () => {
                                 >
                                     <div
                                         className={styles.infoPanelItemAvatar}
-                                        style={{marginRight: 10, marginTop: 0}}
+                                        style={{ marginRight: 10, marginTop: 0 }}
                                     >
                                         {item.avatar}
                                         <div>{item.id}</div>
@@ -75,28 +107,28 @@ const AllArticles = () => {
                                             height: 40,
                                         }}
                                     >
-                      <span
-                          style={{
-                              maxWidth: 152,
-                              whiteSpace: "nowrap",
-                          }}
-                      >
-                        {item.text}
-                      </span>
+                                        <span
+                                            style={{
+                                                maxWidth: 152,
+                                                whiteSpace: "nowrap",
+                                            }}
+                                        >
+                                            {item.text}
+                                        </span>
                                         <div>{item.text}</div>
-                                        <Image
+                                        {/* <Image
                                             onClick={(e) => e.stopPropagation()}
                                             src={"/delete-icon.svg"}
                                             alt="delete"
                                             width={16}
                                             height={16}
-                                        />
+                                        /> */}
                                     </div>
                                 </Link>
                             );
                         })}
                     </>
-                )}
+                ) : <div>Список пока пуст</div>}
             </div>
         </div>
     );

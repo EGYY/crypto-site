@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import styles from "../../styles/InfoPanel/InfoPanel.module.css";
 import Button from "../UI/Button";
@@ -21,19 +20,19 @@ const InfoPanel: FC<ComponentProps> = (props) => {
       <div className={styles.infoPanelHeader}>
         {icon}
         <h2>{title}</h2>
-        {showAll && (
+        {showAll && data?.length > 0 && (
           <Button
             style={{ marginLeft: "auto" }}
             text={expanded ? "Скрыть" : "Показать все"}
             handleClick={() => setExpanded(!expanded)}
           />
         )}
-        {!showAll && redirect && (
-            <Button
-                style={{ marginLeft: "auto" }}
-                text={"Показать все"}
-                handleClick={() => redirect()}
-            />
+        {!showAll && redirect && data?.length > 0 && (
+          <Button
+            style={{ marginLeft: "auto" }}
+            text={"Показать все"}
+            handleClick={() => redirect()}
+          />
         )}
       </div>
       {!expanded ? (
@@ -61,7 +60,7 @@ const InfoPanel: FC<ComponentProps> = (props) => {
                   >
                     <div
                       className={styles.infoPanelItemAvatar}
-                      style={{ marginRight: 10, marginTop: 0}}
+                      style={{ marginRight: 10, marginTop: 0 }}
                     >
                       {item.avatar}
                       <div>{item.id}</div>
@@ -86,13 +85,13 @@ const InfoPanel: FC<ComponentProps> = (props) => {
                         {item.text}
                       </span>
                       <div>{item.text}</div>
-                      <Image
+                      {/* <Image
                         onClick={(e) => e.stopPropagation()}
                         src={"/delete-icon.svg"}
                         alt="delete"
                         width={16}
                         height={16}
-                      />
+                      /> */}
                     </div>
                   </Link>
                 );

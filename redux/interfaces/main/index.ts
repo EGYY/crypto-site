@@ -3,7 +3,7 @@ export interface IGetInfoResponse {
     sum_investments: number,
     most_active_user: string[],
     private_club_participants: number,
-    my_top_five: {id: number, title: string}[]
+    my_top_five: { id: number, title: string }[]
 }
 
 export interface IMainState {
@@ -19,5 +19,9 @@ export interface IGetProjects {
     id: number,
     title: string,
     cover: string,
+    paragraph: string,
+    profit_category: string,
+    is_interesting: boolean,
+    is_news: boolean,
 }
 

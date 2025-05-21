@@ -1,14 +1,17 @@
-import React, {useEffect, useMemo} from 'react';
-import {useAppDispatch, useAppSelector} from "../../redux/hooks";
-import {getProjects} from "../../redux/main/mainSlice";
-import {_api_url} from "../../redux/store";
+import React, { useEffect, useMemo } from 'react';
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getProjects } from "../../redux/main/mainSlice";
+import { _api_url } from "../../redux/store";
 import styles from "../../styles/InfoPanel/InfoPanel.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 const AllProjects = () => {
     const dispatch = useAppDispatch();
-    const {projects} = useAppSelector(state => state.main);
+    const router = useRouter();
+    const { query } = router;
+    const { projects } = useAppSelector(state => state.main);
 
     useEffect(() => {
         if (projects.length === 0) {
@@ -18,7 +21,8 @@ const AllProjects = () => {
 
     const projectsData = useMemo(() => {
         if (projects.length > 0) {
-            const arr = projects.map(item => {
+            const data = query ? projects.filter(item => item.profit_category === query.category) : projects;
+            const arr = data.map(item => {
                 return ({
                     id: item.id,
                     avatar: <img
@@ -39,13 +43,43 @@ const AllProjects = () => {
         } else {
             return []
         }
-    }, [projects])
+    }, [projects, query])
+
+    const title = useMemo(() => {
+        switch (query.category) {
+            case 'Startup':
+                return 'Инвестиции в стартапы'
+            case 'High Profit':
+                return 'инвестиции в высокодоходные темы (High риск)'
+            case 'Middle Profit':
+                return 'инвестиции в криптовалюты'
+            case 'Low Profit':
+                return 'инвестиции в реальный бизнес'
+            default:
+                return 'свежие проекты'
+        }
+    }, [query])
+
+    const icon = useMemo(() => {
+        switch (query.category) {
+            case 'Startup':
+                return '/startup-icon.png'
+            case 'High Profit':
+                return '/high-risk-icon.png'
+            case 'Middle Profit':
+                return '/crypto-icon.png'
+            case 'Low Profit':
+                return '/bussnies-icon.png'
+            default:
+                return '/idea.svg'
+        }
+    }, [query])
 
     return (
         <div className={styles.infoPanel}>
             <div className={styles.infoPanelHeader}>
-                <Image src="/idea.svg" alt="свежие проекты" width={30} height={30} />
-                <h2>свежие проекты</h2>
+                <Image src={icon} alt={title} width={30} height={30} />
+                <h2>{title}</h2>
             </div>
             <div className={styles.infoPanelContentColumn}>
                 {projectsData?.length > 0 && (
@@ -59,7 +93,7 @@ const AllProjects = () => {
                                 >
                                     <div
                                         className={styles.infoPanelItemAvatar}
-                                        style={{marginRight: 10, marginTop: 0}}
+                                        style={{ marginRight: 10, marginTop: 0 }}
                                     >
                                         {item.avatar}
                                         <div>{item.id}</div>
@@ -75,22 +109,22 @@ const AllProjects = () => {
                                             height: 40,
                                         }}
                                     >
-                      <span
-                          style={{
-                              maxWidth: 152,
-                              whiteSpace: "nowrap",
-                          }}
-                      >
-                        {item.text}
-                      </span>
+                                        <span
+                                            style={{
+                                                maxWidth: '30vw',
+                                                whiteSpace: "nowrap",
+                                            }}
+                                        >
+                                            {item.text}
+                                        </span>
                                         <div>{item.text}</div>
-                                        <Image
+                                        {/* <Image
                                             onClick={(e) => e.stopPropagation()}
                                             src={"/delete-icon.svg"}
                                             alt="delete"
                                             width={16}
                                             height={16}
-                                        />
+                                        /> */}
                                     </div>
                                 </Link>
                             );
