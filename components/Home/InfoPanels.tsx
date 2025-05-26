@@ -6,34 +6,11 @@ import { _api_url } from "../../redux/store";
 import { useRouter } from "next/router";
 import IntroBlock from "../InfoPanel/IntroBlock";
 import { InvestmentList } from "../Investment/InvestmentList";
+import { Banner } from "../Banner/Banner";
 
 export default function InfoPanels() {
     const { projects, articles, favorites } = useAppSelector(state => state.main);
     const navigate = useRouter();
-    const projectsData = useMemo(() => {
-        if (projects.length > 0) {
-            const arr = projects.map(item => {
-                return ({
-                    id: item.id,
-                    avatar: <img
-                        src={`${_api_url}${item.cover}`}
-                        onError={({ currentTarget }) => {
-                            currentTarget.onerror = null;
-                            currentTarget.src = "/infoPanelAvatar.png";
-                        }}
-                        width={40}
-                        height={40}
-                        alt="Обложка проекта"
-                    />,
-                    text: item.title,
-                    href: `/project/${item.id}`,
-                })
-            })
-            return arr;
-        } else {
-            return []
-        }
-    }, [projects])
 
     const articlesData = useMemo(() => {
         if (articles.length > 0) {
@@ -59,7 +36,6 @@ export default function InfoPanels() {
             return []
         }
     }, [articles])
-
 
     const interestingArticles = useMemo(() => {
         if (articles.length > 0) {
@@ -199,6 +175,11 @@ export default function InfoPanels() {
                 data={articlesData}
                 redirect={() => navigate.push('/articles')}
             />
+            <Banner
+                image={'https://www.calltouch.ru/blog/wp-content/uploads/2019/01/kak-sdelat-banner-dlya-sajta-samostoyatelno-1024x576.jpg'}
+                link="https://github.com/"
+                style={{ maxWidth: 728, width: '100%', height: 90, margin: '0 auto', display: 'flex', cursor: 'pointer' }}
+            />
             <IntroBlock />
             <InvestmentList
                 icon={<Image src="/startup-icon.png" alt="Инвестиции в стартапы" width={30} height={30} />}
@@ -246,6 +227,11 @@ export default function InfoPanels() {
                 title="последние новости по проектам"
                 data={newsArticles}
                 redirect={() => navigate.push('/articles?type=news')}
+            />
+            <Banner
+                image={'https://www.calltouch.ru/blog/wp-content/uploads/2019/01/kak-sdelat-banner-dlya-sajta-samostoyatelno-1024x576.jpg'}
+                link="https://github.com/"
+                style={{ maxWidth: 728, width: '100%', height: 90, margin: '0 auto', display: 'flex', cursor: 'pointer' }}
             />
         </div>
     );

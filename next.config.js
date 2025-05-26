@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   images: {
-    domains: ['zarabarahorosho.pro'],
+    domains: ['zarabarahorosho.pro', 'www.calltouch.ru'],
   },
 }
 
