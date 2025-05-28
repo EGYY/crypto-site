@@ -21,6 +21,18 @@ export interface IArticle {
     notion_id: string,
 }
 
+export interface INews {
+    id: number
+    project: number
+    notion_id: string
+    text: string
+    number_of_views: number
+    cover: string
+    created_at: string
+    is_favourite: boolean
+    external_video_url: string
+}
+
 export interface IProject {
     id: number,
     title: string,
@@ -33,6 +45,7 @@ export interface IProject {
     how_many_days: number,
     link_to_site: string | null,
     article_to_project: IArticle[],
+    news_article: INews[],
     comment_to_project: IProjectComment[],
 }
 

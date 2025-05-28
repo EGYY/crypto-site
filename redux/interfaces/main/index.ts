@@ -6,6 +6,16 @@ export interface IGetInfoResponse {
     my_top_five: { id: number, title: string }[]
 }
 
+export interface IBanner {
+    id: number
+    title: string
+    description: string
+    image: string
+    link: string
+    position: "sidebar_top" | "sidebar_bottom" | "header" | "footer",
+    is_active: boolean
+}
+
 export interface IMainState {
     main_info: IGetInfoResponse,
     loading_main_info: boolean,
@@ -13,6 +23,7 @@ export interface IMainState {
     articles: IGetProjects[],
     favorites: IGetProjects[],
     loading_projects: boolean,
+    banners: IBanner[]
 }
 
 export interface IGetProjects {

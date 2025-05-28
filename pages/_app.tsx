@@ -8,7 +8,7 @@ import { store } from '../redux/store';
 import '../styles/globals.css';
 import '../styles/not_found.css';
 import { setAuth, setUser } from "../redux/user/userSlice";
-import { getArticles, getFavoriteProjects, getMainInfo, getProjects } from "../redux/main/mainSlice";
+import { getArticles, getFavoriteProjects, getMainBanners, getMainInfo, getProjects } from "../redux/main/mainSlice";
 
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
@@ -25,6 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
     store.dispatch(getProjects());
     store.dispatch(getArticles());
     store.dispatch(getFavoriteProjects());
+    store.dispatch(getMainBanners());
   }, []);
 
   return (

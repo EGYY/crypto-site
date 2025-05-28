@@ -7,7 +7,7 @@ import Wrapper from "../../components/Wrapper"
 import styles from '../../styles/Home.module.css';
 import { _api_url } from "../../redux/store";
 import ArticleListComments from "../../components/Article/ArticleListComments";
-import { IProject } from "../../redux/interfaces/project";
+import { INews, IProject } from "../../redux/interfaces/project";
 import { setProject } from "../../redux/project/projectSlice";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Image from "next/image";
@@ -24,8 +24,8 @@ const ProjectPage: FC<any> = ({ project, html }) => {
     }, [project, dispatch])
 
     const projectNews = useMemo(() => {
-        if (project?.article_to_project?.length > 0) {
-            const arr = project?.article_to_project.map((item: IProject) => {
+        if (project?.news_article?.length > 0) {
+            const arr = project?.news_article.map((item: INews) => {
                 return ({
                     avatar: <img
                         src={`${_api_url}${item.cover}`}
@@ -37,9 +37,9 @@ const ProjectPage: FC<any> = ({ project, html }) => {
                         height={40}
                         alt="Обложка статьи"
                     />,
-                    text: item.title,
                     href: `/article/${item.id}`,
                     ...item,
+                    text: item.text || 'Без названия'
                 })
             })
             return arr;
@@ -55,14 +55,16 @@ const ProjectPage: FC<any> = ({ project, html }) => {
                     <div className='col-16'>
                         <Cards />
                         <Article data={projectState} html={html} />
-                        <InvestmentList
-                            icon={<Image src="/top-5-news.png" alt="Топ 5 свежих новостей по проекту" width={30} height={30} />}
-                            title="Топ 5 свежих новостей по проекту"
-                            data={projectNews}
-                            showAll={projectNews?.length > 5}
-                            background="#F2FFED"
-                            type="top5"
-                        />
+                        {projectNews.length > 0 && (
+                            <InvestmentList
+                                icon={<Image src="/top-5-news.png" alt="Топ 5 свежих новостей по проекту" width={30} height={30} />}
+                                title="Топ 5 свежих новостей по проекту"
+                                data={projectNews}
+                                showAll={projectNews?.length > 5}
+                                background="#F2FFED"
+                                type="top5"
+                            />
+                        )}
                         <ArticleComment />
                         <ArticleListComments data={projectState?.comment_to_project ?? []} />
                     </div>

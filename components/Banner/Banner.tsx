@@ -15,8 +15,8 @@ export const Banner: FC<BannerProps> = (props) => {
             src={image}
             alt={image}
             style={style}
-            width={300}
-            height={300}
+            width={700}
+            height={700}
             onClick={() => {
                 window.open(link, '_blank')
             }}

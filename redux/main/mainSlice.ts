@@ -1,12 +1,33 @@
-import {IGetInfoResponse, IGetProjects, IMainState} from "../interfaces/main";
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {_api_url} from "../store";
+import { IBanner, IGetInfoResponse, IGetProjects, IMainState } from "../interfaces/main";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { _api_url } from "../store";
 
 export const getMainInfo = createAsyncThunk(
     'main/info',
     async function (_, api) {
         try {
             const response = await fetch(`${_api_url}/api/v1/blog/main/`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw Error('Ошибка получения информации!')
+            }
+            const data = await response.json();
+            return data;
+        } catch (e: any) {
+            return api.rejectWithValue(e.message);
+        }
+
+    }
+)
+
+export const getMainBanners = createAsyncThunk(
+    'main/banners',
+    async function (_, api) {
+        try {
+            const response = await fetch(`${_api_url}/api/v1/blog/banners/`, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -99,6 +120,7 @@ const initialState: IMainState = {
     articles: [],
     favorites: [],
     loading_projects: false,
+    banners: [],
 
 }
 
@@ -139,6 +161,9 @@ const mainSlice = createSlice(
             },
             [getMainInfo.rejected.toString()]: (state) => {
                 state.loading_main_info = false;
+            },
+            [getMainBanners.fulfilled.toString()]: (state, action: PayloadAction<IBanner[]>) => {
+                state.banners = action.payload;
             },
             [getProjects.pending.toString()]: (state) => {
                 state.loading_projects = true;

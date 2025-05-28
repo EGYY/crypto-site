@@ -4,9 +4,10 @@ import TopPanel from "../TopPanel/TopPanel";
 import { useAppSelector } from "../../redux/hooks";
 import styles from "../../styles/TopPanel/TopPanel.module.css";
 import { Banner } from "../Banner/Banner";
+import { _api_url } from "../../redux/store";
 
 export default function TopPanels() {
-    const { main_info } = useAppSelector(state => state.main);
+    const { main_info, banners } = useAppSelector(state => state.main);
 
     const topInvests = useMemo(() => {
         if (main_info.my_top_five instanceof Array && main_info.my_top_five.length > 0) {
@@ -23,24 +24,53 @@ export default function TopPanels() {
         }
     }, [main_info.my_top_five]);
 
+    const sidebarTopBanner = useMemo(() => {
+        if (banners?.length > 0) {
+            const banner = banners.find(item => item.position === 'sidebar_top');
+            if (banner && banner.is_active) {
+                return banner;
+            }
+            return null
+        }
+        return null
+    }, [banners])
+
+    const sidebarBottomBanner = useMemo(() => {
+        if (banners?.length > 0) {
+            const banner = banners.find(item => item.position === 'sidebar_bottom');
+            if (banner && banner.is_active) {
+                return banner;
+            }
+            return null
+        }
+        return null
+    }, [banners])
+
     return (
         <div className={styles.topPanelContainer}>
-            <Banner
-                image={'https://www.calltouch.ru/blog/wp-content/uploads/2019/01/kak-sdelat-banner-dlya-sajta-samostoyatelno-1024x576.jpg'}
-                link="https://github.com/"
-                style={{ maxWidth: 300, width: '100%', height: 330, margin: '20px auto', display: 'flex', cursor: 'pointer' }}
-            />
+            {sidebarTopBanner && (
+                <Banner
+                    image={`${_api_url}${sidebarTopBanner.image}`}
+                    link={sidebarTopBanner.link}
+                    style={{ maxWidth: 300, width: '100%', height: 330, margin: '20px auto', display: 'flex', cursor: 'pointer' }}
+                />
+            )}
+
             <TopPanel
                 icon={<Image src="/moneyChart.svg" alt="Аватар" width={40} height={40} />}
                 title="Рекомендую присмотреться"
                 withRoute={true}
                 items={topInvests}
             />
-            <Banner
-                image={'https://www.calltouch.ru/blog/wp-content/uploads/2019/01/kak-sdelat-banner-dlya-sajta-samostoyatelno-1024x576.jpg'}
-                link="https://github.com/"
-                style={{ maxWidth: 240, width: '100%', height: 120, margin: '0 auto', display: 'flex', cursor: 'pointer' }}
-            />
+            {
+                sidebarBottomBanner && (
+                    <Banner
+                        image={`${_api_url}${sidebarBottomBanner.image}`}
+                        link={sidebarBottomBanner.link}
+                        style={{ maxWidth: 240, width: '100%', height: 120, margin: '0 auto', display: 'flex', cursor: 'pointer' }}
+                    />
+                )
+            }
         </div>
     )
 }
