@@ -53,6 +53,8 @@ export default function TopPanels() {
                     image={`${_api_url}${sidebarTopBanner.image}`}
                     link={sidebarTopBanner.link}
                     style={{ maxWidth: 300, width: '100%', height: 330, margin: '20px auto', display: 'flex', cursor: 'pointer' }}
+                    title={sidebarTopBanner.title}
+                    description={sidebarTopBanner.description}
                 />
             )}
 
@@ -68,6 +70,8 @@ export default function TopPanels() {
                         image={`${_api_url}${sidebarBottomBanner.image}`}
                         link={sidebarBottomBanner.link}
                         style={{ maxWidth: 240, width: '100%', height: 120, margin: '0 auto', display: 'flex', cursor: 'pointer' }}
+                        title={sidebarBottomBanner.title}
+                        description={sidebarBottomBanner.description}
                     />
                 )
             }

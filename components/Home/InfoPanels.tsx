@@ -202,6 +202,8 @@ export default function InfoPanels() {
                         image={`${_api_url}${headerBanner.image}`}
                         link={headerBanner.link}
                         style={{ maxWidth: 728, width: '100%', height: 90, margin: '0 auto', display: 'flex', cursor: 'pointer' }}
+                        title={headerBanner.title}
+                        description={headerBanner.description}
                     />
                 )
             }
@@ -260,6 +262,8 @@ export default function InfoPanels() {
                         image={`${_api_url}${footerBanner.image}`}
                         link={footerBanner.link}
                         style={{ maxWidth: 728, width: '100%', height: 90, margin: '0 auto', display: 'flex', cursor: 'pointer' }}
+                        title={footerBanner.title}
+                        description={footerBanner.description}
                     />
                 )
             }
