@@ -10,13 +10,14 @@ interface ComponentProps {
   data: any[];
   showAll?: boolean;
   redirect?: () => void,
+  background?: string,
 }
 
 const InfoPanel: FC<ComponentProps> = (props) => {
-  const { icon, title, data, showAll, redirect } = props;
+  const { icon, title, data, showAll = false, redirect, background = '#F5F5F5' } = props;
   const [expanded, setExpanded] = useState(false);
   return (
-    <div className={styles.infoPanel}>
+    <div className={styles.infoPanel} style={{ background }}>
       <div className={styles.infoPanelHeader}>
         {icon}
         <h2>{title}</h2>

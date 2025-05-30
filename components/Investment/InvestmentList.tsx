@@ -23,7 +23,7 @@ export const InvestmentList: FC<ComponentProps> = (props) => {
                 {icon}
                 <h2>{title}</h2>
                 {
-                    (redirect || showAll) && (
+                    (redirect || showAll) && data.length > 0 && (
                         <Button
                             style={{ marginLeft: "auto" }}
                             text={!expanded ? "Показать все" : 'Топ 5'}

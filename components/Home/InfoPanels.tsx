@@ -150,7 +150,7 @@ export default function InfoPanels() {
 
     const middleProfitData = useMemo(() => {
         if (projects.length > 0) {
-            const arr = getInvestmentData('Middle Profit', projects)
+            const arr = getInvestmentData('Crypto', projects)
             return arr;
         } else {
             return []
@@ -159,7 +159,7 @@ export default function InfoPanels() {
 
     const lowProfitData = useMemo(() => {
         if (projects.length > 0) {
-            const arr = getInvestmentData('Low Profit', projects)
+            const arr = getInvestmentData('Real Business', projects)
             return arr;
         } else {
             return []
@@ -229,7 +229,7 @@ export default function InfoPanels() {
                 icon={<Image src="/crypto-icon.png" alt="инвестиции в криптовалюты" width={30} height={30} />}
                 title="инвестиции в криптовалюты"
                 data={middleProfitData}
-                redirect={() => navigate.push('/projects?category=Middle Profit')}
+                redirect={() => navigate.push('/projects?category=Crypto')}
                 background="#fffdee"
             />
 
@@ -237,11 +237,11 @@ export default function InfoPanels() {
                 icon={<Image src="/bussnies-icon.png" alt="инвестиции в реальный бизнес" width={30} height={30} />}
                 title="инвестиции в реальный бизнес"
                 data={lowProfitData}
-                redirect={() => navigate.push('/projects?category=Low Profit')}
+                redirect={() => navigate.push('/projects?category=Real Business')}
                 background="#fff8ee"
             />
 
-            <InvestmentList
+            <InfoPanel
                 icon={<Image src="/finance-icon.png" alt="Интересные статьи о финансах" width={30} height={30} />}
                 title="Интересные статьи о финансах"
                 data={interestingArticles}

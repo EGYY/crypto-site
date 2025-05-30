@@ -51,9 +51,9 @@ const AllProjects = () => {
                 return 'Инвестиции в стартапы'
             case 'High Profit':
                 return 'инвестиции в высокодоходные темы (High риск)'
-            case 'Middle Profit':
+            case 'Crypto':
                 return 'инвестиции в криптовалюты'
-            case 'Low Profit':
+            case 'Real Business':
                 return 'инвестиции в реальный бизнес'
             default:
                 return 'свежие проекты'
@@ -66,9 +66,9 @@ const AllProjects = () => {
                 return '/startup-icon.png'
             case 'High Profit':
                 return '/high-risk-icon.png'
-            case 'Middle Profit':
+            case 'Crypto':
                 return '/crypto-icon.png'
-            case 'Low Profit':
+            case 'Real Business':
                 return '/bussnies-icon.png'
             default:
                 return '/idea.svg'
