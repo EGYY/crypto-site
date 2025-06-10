@@ -19,6 +19,7 @@ export interface IArticle {
     project: number,
     number_of_views: number,
     notion_id: string,
+    external_video_url?: string
 }
 
 export interface INews {

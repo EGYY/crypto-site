@@ -59,6 +59,9 @@ const ArticleWithoutActions: FC<{ data: IArticle; html?: string }> = ({
         </div>
         <div className={styles.articleContent}>
           {html && <div dangerouslySetInnerHTML={{ __html: html }}></div>}
+          {data?.external_video_url && (
+            <div className={styles.articleVideoContainer} dangerouslySetInnerHTML={{ __html: data?.external_video_url }}></div>
+          )}
           <div>
             <div></div>
             <p>Нашли ошибку?</p>

@@ -114,6 +114,14 @@
     max-width: 100%;
 }
 
+.articleVideoContainer {
+    width: 100%;
+}
+
+.articleVideoContainer > iframe {
+    width: 100%;
+}
+
 @media screen and (max-width: 860px) {
     .articleHeader {
         flex-direction: column;
